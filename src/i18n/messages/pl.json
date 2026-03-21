@@ -114,13 +114,19 @@
     "ratingSub": "Ocena klientów"
   },
   "howItWorks": {
-    "title": "Jak to działa?",
-    "step1Title": "Wybierz dania",
-    "step1Desc": "Przeglądaj tygodniowe menu i dodaj do koszyka to, na co masz dziś ochotę.",
-    "step2Title": "My gotujemy",
-    "step2Desc": "Przygotowujemy Twoje dania ze świeżych składników z certyfikatem INAO.",
-    "step3Title": "Dostawa do biura",
-    "step3Desc": "Dostarczamy między 8:00 a 10:00 — prosto na Twoje biurko."
+    "eyebrow": "Jak to działa?",
+    "title": "Od zamówienia do stołu",
+    "subtitle": "Kroki 2–5 zajmują nam dokładnie 24 godziny.",
+    "step1Title": "Wybierasz z menu",
+    "step1Desc": "Przeglądasz tygodniowe menu i wybierasz co masz dziś ochotę. Schabowy? Sushi? Jedno i drugie — Twój wybór.",
+    "step2Title": "Przyjeżdżają świeże składniki",
+    "step2Desc": "Dostawcy przywożą składniki z certyfikatem INAO — prosto z farm, nie z mroźni. Tutaj zaczyna się odliczanie 24 godzin.",
+    "step3Title": "Gotujemy bez skrótów",
+    "step3Desc": "Kuchnia rusza. Świeże warzywa, prawdziwe mięso, normalne przepisy. Zero gotowych baz, zero mrożonek.",
+    "step4Title": "Pakujemy bez chemii",
+    "step4Desc": "Bez konserwantów, bez sztucznych utrwalaczy. Pakujemy tak, żeby danie dotarło do Ciebie tak dobre jak wyjechało z kuchni.",
+    "step5Title": "Rano jesteśmy u Ciebie",
+    "step5Desc": "Między 8:00 a 10:00 stoimy pod Twoim biurem. Dokładnie 24 godziny po tym jak zaczęliśmy gotować — bo świeżość nie czeka."
   },
   "differentiators": {
     "eyebrow": "Co nas wyróżnia",
@@ -160,6 +166,19 @@
     "placeholder": "Twój adres email",
     "confirm": "Zapisuję się",
     "thanks": "Zapisano! Damy Ci znać jako pierwszemu."
+  },
+  "socialProof": {
+    "heading": "Nie tylko Niedźwiedź poleca",
+    "readMore": "Czytaj całą opinię",
+    "close": "Zamknij",
+    "review0": "Codziennie pysznie, spory wybór, zamawiam głównie obiady, które oceniam na 5+. Porcja jest idealna, posiłki są świeże i smaczne. Cena jest odpowiednia a jakość posiłków naprawdę robi wrażenie. Gotujecie świetnie dziękuję",
+    "review1": "Niedźwiedź może i jest głodny, ale to tylko dlatego, że wyjadamy mu wszystko co nam ugotuje i dostarczy za pośrednictwem Pana Mateusza, który dba, byśmy nie byli głodni w pracy 🙂 Jedzenie od Głodnego Niedźwiedzia jest smaczne, najbardziej polecam dania obiadowe. Wybór jest duży, można kupić obiad/lunch w rozmiarze XXL - gdy dopadnie większy głód, są też dania wege i zupy - te bardziej klasyczne jak i orientalne. Oprócz tego tortille, kanapki, deserki, sałatki/bowle i z tego co kojarzę - także sushi. Fajnie, że można zobaczyć jakie jest menu na cały tydzień na stronie firmy. Cena też jest przystępna. Cieszy mnie to, że w ofercie pojawiają się cepeliny z mięsem - są pyszne, a w niewielu miejscach można kupić kartacze.",
+    "review2": "Jak zobaczyłam, że Głodny Niedźwiedź dotarł aż do Tarnowa, to byłam w szoku, bo kojarzyłam go z Trójmiastem. Ale jedzonko to samo, smaczne, ciekawe kompozycje smakowe, kolorowe, świeże. I duża różnorodność, również wege. A czego nie wybiorę, to okazuje się smaczne. I plus dla Was, że ratujecie jedzenie z TGTG!",
+    "review3": "Co dzień w pracy grzecznie czekam jak niedźwiadek z głodu mnie wyzwoli 🙂 Od kanapek, zup, drugich dań, sałatek, soków i obłędnie pysznych deserków jak z wykwintnej restauracji. Każde danie woła zjedz mnie, wygląda przepięknie i jeszcze lepiej smakuje. W Tarnowskich Górach wspaniale nasze zamówienia ogarnia Pani i każdego dnia wita uroczym uśmiechem. Niedźwiadku jak dobrze że Ty nie zasypiasz na zimę a rozpieszczasz nasz brzuszek i podniebienia. Dziękujemy!",
+    "review4": "Katering od Głodny Niedźwiedź to codziennie prawdziwa uczta, deserki palce lizać a wybór dań i potraw większy niż seriali w tv. Nasza kurierka siostra Magda bardzo profesjonalna i oddana swojej pracy, nieraz ratowała mnie od głodu bo kiedy zdarzyło mi się zapomnieć czegoś zamówić to Ona zawsze podjedzie i poratuje smaczną kuchnią. Szczerze polecam!",
+    "review5": "Rzadko kiedy pisze opinie w internecie, ale w tej sytuacji muszę - jedzonko jest przepyszne!! Sałatka z kurczakiem, pieczonym burakiem, kaszą pęczak i fetą - petardaaa. Owsianka piernikowa z marmoladą śliwkową - tak pysznej owsianki nie jadłam nigdy. 20/10. Miałam kiedyś pudełka, ale jedzenie było bez smaku, wyrazu, nijakie, dlatego bardzo szybko zrezygnowałam, a tym jedzonkiem jestem zachwycona, naprawdę polecam!",
+    "review6": "Catering Głodny Niedźwiedź oferuje różnorodne menu, które zaspokaja różne gusta i preferencje żywieniowe. Potrawy są starannie skomponowane, a ceny są bardzo konkurencyjne. Zalety: różnorodność - menu obejmuje opcje wegetariańskie i mięsne; świeże składniki - sałatki i zupy wskazują na użycie świeżych produktów; ciekawe połączenia smakowe - dania takie jak Pad Thai i ramen pokazują, że catering nie boi się eksperymentować z różnymi kuchniami świata.",
+    "review7": "Bardzo dobre jedzenie, ceny też bardzo przystępne, wszystko świeże i dopieszczone, a Pani Julia pracownik skarb. Polecam!!!"
   },
   "footerCta": {
     "headline": "Jutrzejszy lunch może być lepszy.",

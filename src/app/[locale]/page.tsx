@@ -86,7 +86,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#FDF6EC]">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 overflow-hidden bg-[#1B4332] shadow-lg [transform:translateZ(0)] [backface-visibility:hidden]">
+      <header className="fixed top-0 left-0 right-0 z-100 h-16 overflow-hidden bg-[#1B4332] shadow-lg [transform:translateZ(0)] [backface-visibility:hidden]">
         <div className="mx-auto max-w-2xl px-5 py-3.5">
           {searchOpen ? (
             <div className="flex items-center gap-2">

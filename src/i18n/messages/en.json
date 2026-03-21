@@ -114,13 +114,19 @@
     "ratingSub": "Customer rating"
   },
   "howItWorks": {
-    "title": "How does it work?",
-    "step1Title": "Choose your meals",
-    "step1Desc": "Browse the weekly menu and add whatever you fancy today to your cart.",
-    "step2Title": "We cook",
-    "step2Desc": "We prepare your meals from fresh INAO-certified ingredients.",
-    "step3Title": "Office delivery",
-    "step3Desc": "We deliver between 8:00 and 10:00 — straight to your desk."
+    "eyebrow": "How it works",
+    "title": "From order to table",
+    "subtitle": "Steps 2–5 take us exactly 24 hours.",
+    "step1Title": "You choose from the menu",
+    "step1Desc": "Browse the weekly menu and pick what you fancy today. Pork schnitzel? Sushi? Both — your call.",
+    "step2Title": "Fresh ingredients arrive",
+    "step2Desc": "Suppliers deliver INAO-certified ingredients straight from farms, not freezers. The 24-hour countdown begins.",
+    "step3Title": "We cook. Properly.",
+    "step3Desc": "The kitchen fires up. Fresh veg, real meat, proper recipes. No pre-made bases, no frozen shortcuts.",
+    "step4Title": "We pack. No chemicals.",
+    "step4Desc": "No preservatives, no artificial additives. Packed so your meal arrives just as good as it left the kitchen.",
+    "step5Title": "At your office by morning",
+    "step5Desc": "We're at your door between 8:00 and 10:00 — exactly 24 hours after we started cooking. Freshness has standards."
   },
   "differentiators": {
     "eyebrow": "What sets us apart",
@@ -160,6 +166,19 @@
     "placeholder": "Your email address",
     "confirm": "Sign me up",
     "thanks": "Done! We'll let you know first."
+  },
+  "socialProof": {
+    "heading": "Not just the Bear recommends it",
+    "readMore": "Read full review",
+    "close": "Close",
+    "review0": "Delicious every day, great variety — I mainly order main courses, which I rate 5+. Portions are perfect, food is fresh and tasty. The price is fair and the quality is truly impressive. You cook brilliantly, thank you!",
+    "review1": "The Bear may be hungry, but only because we eat everything it cooks and delivers through Mr. Mateusz, who makes sure we're never hungry at work 🙂 The food is delicious — I especially recommend the main courses. Great choice, you can order an XXL lunch when hunger strikes harder. There are also veggie options, soups, tortillas, sandwiches, desserts, salads, and apparently sushi too. Great that you can see the full week's menu on the website. Prices are very reasonable. I'm also thrilled to see cepelinai with meat in the offer — they're delicious and hard to find elsewhere.",
+    "review2": "When I saw that Głodny Niedźwiedź had reached Tarnów, I was shocked — I associated it with the Tricity area. But the food is just as good: tasty, interesting flavour combinations, colourful, fresh. And great variety, including veggie options. Whatever I choose turns out to be delicious. Plus points for saving food through Too Good To Go!",
+    "review3": "Every day at work I patiently wait for the little bear to rescue me from hunger 🙂 From sandwiches, soups, mains, salads, juices to insanely delicious desserts like from a fine restaurant. Every dish looks beautiful and tastes even better. In Tarnowskie Góry our orders are handled wonderfully and greeted with a lovely smile every day. Little bear, how wonderful that you don't hibernate and instead spoil our tummies and taste buds. Thank you!",
+    "review4": "Catering from Głodny Niedźwiedź is a real feast every day — desserts to die for, and the menu is bigger than the TV series selection. Our courier Magda is very professional and dedicated — she's saved me from hunger more than once when I forgot to order, always coming through with something delicious. Highly recommended!",
+    "review5": "I rarely write reviews online, but this time I have to — the food is absolutely delicious!! Chicken salad with roasted beetroot, pearl barley and feta — a total bomb. Gingerbread oatmeal with plum jam — the best oatmeal I've ever had. 20/10. I used to have meal boxes, but the food was bland and tasteless, so I quit quickly. This food has me completely won over. Highly recommended!",
+    "review6": "Głodny Niedźwiedź catering offers a diverse menu that satisfies a wide range of tastes and dietary preferences. Dishes are carefully composed and prices are very competitive. Highlights: variety — the menu covers vegetarian and meat options; fresh ingredients — salads and soups show quality produce; interesting flavour combinations — dishes like Pad Thai and ramen show they're not afraid to experiment with world cuisines.",
+    "review7": "Very good food, very affordable prices, everything fresh and carefully prepared. Ms. Julia is an absolute gem of an employee. Highly recommended!!!"
   },
   "footerCta": {
     "headline": "Tomorrow's lunch could be better.",
