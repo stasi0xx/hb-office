@@ -55,7 +55,7 @@ export default function MenuCategory({ category, dishes, date, isOpen: isOpenPro
       </button>
 
       {isOpen && (
-        <div className="px-3 pb-3 flex flex-col gap-2">
+        <div className="px-3 md:px-4 pb-3 md:pb-4 pt-1 grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
           {dishes.map((dish, idx) => {
             const id = `${slugify(date)}-${slugify(category)}-${slugify(dish.nazwa)}-${idx}`;
             return (

@@ -85,10 +85,10 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
 
           {/* Header */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#E8927C] mb-1">{category}</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#ed8788] mb-1">{category}</p>
             <h2 className="font-heading font-black text-2xl leading-tight text-[#1B4332]">{name}</h2>
             <div className="mt-2 flex items-center gap-2.5">
-              <span className="text-xl font-extrabold text-[#E8927C]">
+              <span className="text-xl font-extrabold text-[#ed8788]">
                 {discountedPrice.toFixed(2).replace('.', ',')} zł
               </span>
               <span className="text-sm font-medium text-gray-400 line-through">{priceStr}</span>
@@ -133,7 +133,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
               {TEST_DETAIL.allergens.map((a) => (
                 <span
                   key={a}
-                  className="rounded-full border border-[#E8927C]/40 bg-[#E8927C]/10 px-3 py-1 text-xs font-semibold text-[#E8927C]"
+                  className="rounded-full border border-[#ed8788]/40 bg-[#ed8788]/10 px-3 py-1 text-xs font-semibold text-[#ed8788]"
                 >
                   {a}
                 </span>

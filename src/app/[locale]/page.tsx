@@ -1,21 +1,20 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import MenuDayTabs from '@/components/MenuDayTabs';
 import MenuCategory from '@/components/MenuCategory';
 import CategoryIcon from '@/components/CategoryIcon';
 import CartBar from '@/components/CartBar';
 import CartDrawer from '@/components/CartDrawer';
-import LanguageToggle from '@/components/LanguageToggle';
 import HeroSection from '@/components/HeroSection';
 import TrustBar from '@/components/TrustBar';
+import FoodGallery from '@/components/FoodGallery';
 import HowItWorks from '@/components/HowItWorks';
 import Differentiators from '@/components/Differentiators';
 import FaqSection from '@/components/FaqSection';
 import FooterSection from '@/components/FooterSection';
 import SocialProof from '@/components/SocialProof';
-import { useCartStore } from '@/store/cart';
 import { getAvailableDates } from '@/lib/utils';
 import menuData from '@/data/menu.json';
 
@@ -26,23 +25,12 @@ const MENU_DATES = Object.keys(menuData) as (keyof MenuData)[];
 
 export default function HomePage() {
   const t = useTranslations('menu');
-  const locale = useLocale();
-  const { openCart, itemCount } = useCartStore();
-
   const tCat = useTranslations('categories');
   const availableDates = getAvailableDates(MENU_DATES);
   const [selectedDate, setSelectedDate] = useState<string>(
     availableDates.length > 0 ? availableDates[0] : MENU_DATES[0]
   );
-  const [hasMounted, setHasMounted] = useState(false);
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
 
   useEffect(() => {
     const initial: Record<string, boolean> = {};
@@ -62,104 +50,70 @@ export default function HomePage() {
     }, 50);
   };
 
-  useEffect(() => {
-    if (searchOpen) {
-      setTimeout(() => searchInputRef.current?.focus(), 50);
-    } else {
-      setSearchQuery('');
-    }
-  }, [searchOpen]);
+  const vanRef = useRef<HTMLDivElement>(null);
+  const [vanVisible, setVanVisible] = useState(false);
 
-  const count = hasMounted ? itemCount() : 0;
+  useEffect(() => {
+    const el = vanRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVanVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const dayMenu = menuData[selectedDate as keyof MenuData] as Record<string, CategoryData> | undefined;
   const categories = dayMenu ? Object.keys(dayMenu) : [];
 
-  const q = searchQuery.trim().toLowerCase();
-  const filteredCategories = q
-    ? categories.filter((cat) =>
-      (dayMenu?.[cat] ?? []).some((d) => d.nazwa.toLowerCase().includes(q))
-    )
-    : categories;
-  const getdishes = (cat: string) =>
-    q ? (dayMenu?.[cat] ?? []).filter((d) => d.nazwa.toLowerCase().includes(q)) : (dayMenu?.[cat] ?? []);
+  const filteredCategories = categories;
+  const getdishes = (cat: string) => dayMenu?.[cat] ?? [];
 
   return (
     <div className="min-h-screen bg-[#FDF6EC]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-100 h-16 overflow-hidden bg-[#1B4332] shadow-lg [transform:translateZ(0)] [backface-visibility:hidden]">
-        <div className="mx-auto max-w-2xl px-5 py-3.5">
-          {searchOpen ? (
-            <div className="flex items-center gap-2">
-              <svg className="h-4 w-4 flex-shrink-0 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-              </svg>
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Szukaj dania..."
-                className="flex-1 bg-transparent text-white placeholder-white/40 text-sm font-medium outline-none"
-              />
-              <button
-                onClick={() => setSearchOpen(false)}
-                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-              >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center justify-between">
-              {/* Logo */}
-              <img src="/images/logo.webp" alt="Głodny Niedźwiedź" className="h-9 w-auto" />
-
-              {/* Right actions */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                  </svg>
-                </button>
-                <LanguageToggle />
-                <button
-                  onClick={openCart}
-                  className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  {count > 0 && (
-                    <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#E8927C] text-[10px] font-bold text-white">
-                      {count}
-                    </span>
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </header>
-
       {/* Spacer pod fixed header */}
       <div className="h-16" />
 
       {/* Hero → TrustBar → Differentiators */}
       <HeroSection />
       <TrustBar />
+      <FoodGallery />
       <Differentiators />
 
       {/* Menu section */}
-      <div id="menu-section">
+      <div id="menu-section" className="relative w-full">
+        {/* Decorative background gradients for large screens */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="hidden lg:block absolute top-40 -left-[15%] w-[600px] h-[600px] bg-[#ed8788]/20 rounded-full blur-[120px]" />
+          <div className="hidden lg:block absolute top-[30%] -right-[10%] w-[500px] h-[500px] bg-[#1B4332]/10 rounded-full blur-[100px]" />
+          <div className="hidden lg:block absolute bottom-[20%] -left-[10%] w-[700px] h-[700px] bg-[#E8967A]/15 rounded-full blur-[120px]" />
+          <div className="hidden lg:block absolute bottom-[5%] -right-[15%] w-[600px] h-[600px] bg-[#EAF0CE]/40 rounded-full blur-[100px]" />
+          {/* Decorative shapes / patterns */}
+          <div className="hidden xl:block absolute top-60 right-[5%] opacity-10 rotate-12">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+          </div>
+          <div className="hidden xl:block absolute top-[45%] left-[3%] opacity-10 -rotate-12">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ed8788" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+          </div>
+          <div className="hidden xl:block absolute bottom-[15%] right-[4%] opacity-10 rotate-45">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8967A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M5 12h14" /><path d="M19 5l-14 14" /><path d="M5 5l14 14" /></svg>
+          </div>
+        </div>
+
         {/* Order info bar */}
-        <div className="bg-[#1B4332]">
-          <div className="mx-auto max-w-2xl overflow-hidden">
-            {/* Bear delivery van — slides in from right, full width */}
-            <div className="animate-slide-in-right">
+        <div className="bg-[#1B4332] overflow-x-hidden relative z-10">
+          <div className="mx-auto max-w-2xl">
+            {/* Bear delivery van — slides in from right when scrolled into view */}
+            <div
+              ref={vanRef}
+              className={`transition-all duration-700 ease-out ${vanVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}
+            >
               <img
                 src="/images/bear-delivery.webp"
                 alt=""
@@ -167,26 +121,28 @@ export default function HomePage() {
               />
             </div>
             {/* Text below */}
-            <div className="px-5 pb-4 text-center">
-              <p className="font-heading font-black text-2xl uppercase tracking-tight text-white">
+            <div className="px-5 pb-6 md:pb-8 text-center">
+              <p className="font-heading font-black text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight text-white drop-shadow-sm">
                 {t('deliveryWindow')}
               </p>
-              <p className="text-sm text-[#E8927C] mt-0.5">{t('orderDeadline')}</p>
+              <p className="text-sm md:text-base lg:text-lg text-[#ed8788] mt-1 md:mt-2 font-medium">
+                {t('orderDeadline')}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Main content */}
-        <div className="mx-auto max-w-2xl px-4">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-8 relative z-10">
           {/* Day tabs + category shortcuts */}
-          <div className="sticky top-16 z-20 bg-[#FDF6EC] pt-3 pb-2 -mx-4 px-4 shadow-sm">
+          <div className="sticky top-16 z-20 bg-[#FDF6EC] pt-3 md:pt-4 lg:pt-5 pb-2 md:pb-3 -mx-4 sm:-mx-6 md:-mx-8 px-4 sm:px-6 md:px-8 shadow-sm">
             <MenuDayTabs
               dates={MENU_DATES}
               selectedDate={selectedDate}
               onSelectDate={setSelectedDate}
             />
             {categories.length > 0 && (
-              <div className="flex gap-2 mt-2 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-2 mt-2 w-max mx-auto max-w-full overflow-x-auto scrollbar-hide px-1 pb-1">
                 {categories.map((category) => {
                   const label = tCat(category as Parameters<typeof tCat>[0]);
                   const firstWord = label.split(' ')[0];
@@ -196,7 +152,7 @@ export default function HomePage() {
                       onClick={() => scrollToCategory(category)}
                       className="flex-shrink-0 flex items-center gap-1.5 rounded-full bg-white border border-[#1B4332]/20 px-3 py-1 text-[#1B4332] transition-all hover:border-[#1B4332]/50 hover:shadow-sm active:scale-95"
                     >
-                      <CategoryIcon category={category} className="h-3.5 w-3.5 text-[#E8927C]" />
+                      <CategoryIcon category={category} className="h-3.5 w-3.5 text-[#ed8788]" />
                       <span className="text-[11px] font-semibold whitespace-nowrap">{firstWord}</span>
                     </button>
                   );
@@ -227,7 +183,7 @@ export default function HomePage() {
                       category={category}
                       dishes={getdishes(category)}
                       date={selectedDate}
-                      isOpen={q ? true : (openCategories[category] ?? true)}
+                      isOpen={openCategories[category] ?? true}
                       onToggle={() => setOpenCategories(prev => ({ ...prev, [category]: !(prev[category] ?? true) }))}
                     />
                   ))

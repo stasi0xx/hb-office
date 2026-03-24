@@ -30,7 +30,7 @@ function ReviewCard({
 }) {
   return (
     <>
-      <div className="text-[56px] leading-none text-[#E8927C] opacity-40 font-heading font-black mb-1">
+      <div className="text-[56px] leading-none text-[#ed8788] opacity-40 font-heading font-black mb-1">
         &ldquo;
       </div>
       <p className="font-heading font-black text-xl leading-snug tracking-tight text-[#1B4332] mb-5 line-clamp-3">
@@ -44,7 +44,7 @@ function ReviewCard({
       <p className="font-heading font-bold text-[#1B4332] text-sm mb-3">{author}</p>
       <button
         onClick={(e) => { e.stopPropagation(); onReadMore(); }}
-        className="text-xs font-semibold text-[#E8927C] hover:text-[#d4765f] underline underline-offset-2 transition-colors cursor-pointer"
+        className="text-xs font-semibold text-[#ed8788] hover:text-[#d4765f] underline underline-offset-2 transition-colors cursor-pointer"
       >
         {readMoreLabel}
       </button>
@@ -98,11 +98,11 @@ function Modal({
           className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-[#1B4332]/40 hover:text-[#1B4332] hover:bg-[#1B4332]/8 transition-all cursor-pointer"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
 
-        <div className="text-[56px] leading-none text-[#E8927C] opacity-40 font-heading font-black mb-2">
+        <div className="text-[56px] leading-none text-[#ed8788] opacity-40 font-heading font-black mb-2">
           &ldquo;
         </div>
         <p className="font-heading font-black text-xl leading-snug tracking-tight text-[#1B4332] mb-6">
@@ -168,13 +168,28 @@ export default function SocialProof() {
   }
 
   const stackPositions = [
-    { translateY: 0,  scale: 1,    opacity: 1,    zIndex: 30 },
+    { translateY: 0, scale: 1, opacity: 1, zIndex: 30 },
     { translateY: 12, scale: 0.96, opacity: 0.65, zIndex: 20 },
     { translateY: 24, scale: 0.92, opacity: 0.35, zIndex: 10 },
   ];
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-[#FDF6EC] px-6 py-16">
+      {/* Decorative background gradients for large screens */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="hidden lg:block absolute top-10 left-[-5%] w-[400px] h-[400px] bg-[#F4B400]/10 rounded-full blur-[100px]" />
+        <div className="hidden lg:block absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-[#1B4332]/5 rounded-full blur-[120px]" />
+        <div className="hidden lg:block absolute bottom-[10%] left-[10%] w-[600px] h-[600px] bg-[#ed8788]/10 rounded-full blur-[120px]" />
+
+        {/* Decorative shapes */}
+        <div className="hidden xl:block absolute top-20 left-[10%] opacity-10 rotate-12">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F4B400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+        </div>
+        <div className="hidden xl:block absolute bottom-40 right-[15%] opacity-10 -rotate-12">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /></svg>
+        </div>
+      </div>
+
       <style>{`
         @keyframes bearPeek {
           0%   { transform: translate(90%, -60%) rotate(140deg); opacity: 0; }
@@ -203,7 +218,7 @@ export default function SocialProof() {
 
       {/* Bear */}
       <div
-        className="pointer-events-none absolute -top-4 -right-8 w-64 select-none z-0"
+        className="pointer-events-none absolute -top-4 -right-8 w-64 select-none z-10"
         style={
           sectionVisible
             ? { animation: 'bearPeek 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards' }
@@ -215,13 +230,13 @@ export default function SocialProof() {
 
       <div className="relative z-10 mx-auto max-w-xl text-center">
         {/* Heading */}
-        <p className="font-heading font-bold text-sm uppercase tracking-widest text-[#E8927C] mb-8">
+        <p className="font-heading font-bold text-sm uppercase tracking-widest text-[#ed8788] mb-8">
           {t('heading')}
         </p>
 
         {/* Card stack */}
         <div
-          className="relative mx-auto mt-15"
+          className="relative mx-auto mt-8 sm:mt-12"
           style={{ height: '330px' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -279,7 +294,7 @@ export default function SocialProof() {
             aria-label="Poprzednia opinia"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="transition-transform duration-200 group-hover:-translate-x-0.5">
-              <path d="M11 4L6 9L11 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M11 4L6 9L11 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
@@ -290,7 +305,7 @@ export default function SocialProof() {
                 className="h-1.5 rounded-full transition-all duration-300"
                 style={{
                   width: i === current ? '20px' : '6px',
-                  backgroundColor: i === current ? '#E8927C' : '#1B4332',
+                  backgroundColor: i === current ? '#ed8788' : '#1B4332',
                   opacity: i === current ? 1 : 0.2,
                 }}
               />
@@ -303,9 +318,41 @@ export default function SocialProof() {
             aria-label="Następna opinia"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5">
-              <path d="M7 4L12 9L7 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M7 4L12 9L7 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
+        </div>
+
+        {/* Google Rating Badge */}
+        <div className="mt-16 pt-10 border-t border-[#1B4332]/5 flex flex-col items-center justify-center shrink-0 w-full relative z-10">
+          {/* Circular Score */}
+          <div className="flex items-center justify-center w-[110px] h-[110px] rounded-full border-[3px] border-[#F4B400] mb-5 bg-white shadow-lg shadow-[#F4B400]/10">
+            <span className="font-heading font-black text-4xl text-[#1B4332] tracking-tighter">4,6</span>
+          </div>
+
+          {/* Google Text Logo */}
+          <div className="flex items-center text-4xl font-bold tracking-tighter mb-4 select-none" style={{ fontFamily: 'Arial, sans-serif', letterSpacing: '-0.05em' }}>
+            <span className="text-[#4285F4]">G</span>
+            <span className="text-[#EA4335]">o</span>
+            <span className="text-[#FBBC05]">o</span>
+            <span className="text-[#4285F4]">g</span>
+            <span className="text-[#34A853]">l</span>
+            <span className="text-[#EA4335]">e</span>
+          </div>
+
+          {/* Stars */}
+          <div className="flex gap-1.5 mb-2">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <svg key={s} width="28" height="28" viewBox="0 0 24 24" fill="#F4B400">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
+          </div>
+
+          {/* Review Count */}
+          <p className="font-heading text-lg text-[#1B4332] font-semibold">
+            2 405 opinii
+          </p>
         </div>
       </div>
 

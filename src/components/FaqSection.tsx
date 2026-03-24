@@ -16,7 +16,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#FDF6EC] px-6 py-14">
+    <section id="faq" className="bg-[#FDF6EC] px-6 py-14">
       <div className="mx-auto max-w-2xl">
         <h2 className="font-heading font-black text-4xl text-[#1B4332] text-center mb-10">
           {t('title')}
@@ -37,7 +37,7 @@ export default function FaqSection() {
                 </span>
                 <span
                   className={`flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-full transition-all duration-200 ${
-                    open === i ? 'bg-[#E8927C] text-white' : 'bg-[#1B4332]/10 text-[#1B4332]'
+                    open === i ? 'bg-[#ed8788] text-white' : 'bg-[#1B4332]/10 text-[#1B4332]'
                   }`}
                 >
                   <svg

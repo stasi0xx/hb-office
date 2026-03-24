@@ -3,7 +3,9 @@
 import { useCartStore, parsePrice, ONLINE_DISCOUNT } from '@/store/cart';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import Image from 'next/image';
 import DishModal from './DishModal';
+import CategoryIcon from './CategoryIcon';
 
 interface DishCardProps {
   id: string;
@@ -38,71 +40,115 @@ export default function DishCard({ id, name, category, priceStr, date }: DishCar
     }
   };
 
+  // Pseudo-random mock image index (1-8) based on dish name length
+  const mockupIndex = (name.length % 8) + 1;
+  const imageSrc = `/images/food-${mockupIndex}.webp`;
+
   return (
     <>
-    {modalOpen && (
-      <DishModal
-        id={id}
-        name={name}
-        category={category}
-        priceStr={priceStr}
-        date={date}
-        onClose={() => setModalOpen(false)}
-      />
-    )}
-    <div
-      className="flex items-start gap-3 rounded-2xl bg-white p-3.5 shadow-sm transition-all hover:shadow-md cursor-pointer"
-      onClick={() => setModalOpen(true)}
-    >
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold leading-snug text-[#1C3D1C]">{name}</p>
-        <div className="mt-1.5 flex items-center gap-2 flex-wrap">
-          <p className="text-base font-extrabold text-[#E8967A]">
-            {discountedPrice.toFixed(2).replace('.', ',')} zł
-          </p>
-          <p className="text-xs font-medium text-gray-400 line-through">
-            {priceStr}
-          </p>
-          <span className="rounded-full bg-[#D4A843] px-1.5 py-0.5 text-[10px] font-extrabold text-white leading-tight">
-            -5% online
-          </span>
+      {modalOpen && (
+        <DishModal
+          id={id}
+          name={name}
+          category={category}
+          priceStr={priceStr}
+          date={date}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+
+      <div
+        className="w-full bg-white rounded-[22px] overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer flex flex-col relative border border-[#1C3D1C]/5"
+        onClick={() => setModalOpen(true)}
+      >
+        {/* Cover Image */}
+        <div className="relative w-full h-[110px] sm:h-[130px] bg-[#e8e0d5]">
+          <Image
+            src={imageSrc}
+            alt={name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, 50vw"
+          />
+        </div>
+
+        {/* Content Section */}
+        <div className="px-3.5 pb-3.5">
+
+          {/* Top row: Logo + Title + Price */}
+          <div className="flex items-start gap-3 -mt-6">
+
+            {/* Overlapping Logo */}
+            <div className="w-[48px] h-[48px] shrink-0 bg-[#1C3D1C] text-white rounded-[14px] flex items-center justify-center border-[2.5px] border-white shadow-sm z-10 relative">
+              <CategoryIcon category={category} className="h-5 w-5" />
+            </div>
+
+            {/* Title & Price */}
+            <div className="flex-1 flex justify-between items-start pt-[28px] gap-2">
+              <h3 className="font-bold text-[14px] sm:text-[15px] leading-tight text-gray-900 line-clamp-2 pr-1">
+                {name}
+              </h3>
+              <span className="text-[15px] font-black text-[#E8967A] shrink-0 mt-[1px]">
+                {discountedPrice.toFixed(2).replace('.', ',')} zł
+              </span>
+            </div>
+          </div>
+
+          {/* Bottom row: Meta Pins + Add to Cart */}
+          <div className="flex items-end justify-between mt-3.5 pl-0.5">
+
+            {/* Connecting Pins */}
+            <div className="flex flex-col gap-1.5 relative">
+              {/* Dotted line */}
+              <div className="absolute left-[6px] top-[14px] bottom-[14px] border-l-[1.5px] border-dotted border-gray-300"></div>
+
+              {/* Pin 1: Online Discount */}
+              <div className="flex items-center gap-2.5 z-10">
+                <div className="w-[14px] h-[14px] shrink-0 rounded-full border-[1.5px] border-[#1C3D1C] bg-white flex items-center justify-center">
+                  <div className="w-[4px] h-[4px] rounded-full bg-[#1C3D1C]"></div>
+                </div>
+                <span className="text-[11px] font-bold text-gray-800 leading-none">Rabat -5%</span>
+                <span className="text-[10px] font-bold text-[#E8967A] leading-none mt-0.5 ml-[-1px]">online</span>
+              </div>
+
+              {/* Pin 2: Original Price */}
+              <div className="flex items-center gap-2.5 z-10">
+                <div className="w-[14px] h-[14px] shrink-0 rounded-full border-[1.5px] border-gray-300 bg-white flex items-center justify-center">
+                </div>
+                <span className="text-[11px] font-medium text-gray-500 leading-none">Zwykła cena</span>
+                <span className="text-[10px] font-medium text-gray-400 line-through leading-none mt-0.5 ml-[-1px]">{priceStr}</span>
+              </div>
+            </div>
+
+            {/* Add Counter / Button */}
+            <div className="shrink-0 pb-0.5" onClick={(e) => e.stopPropagation()}>
+              {quantity === 0 ? (
+                <button
+                  onClick={handleAdd}
+                  className={`flex h-[34px] px-3.5 items-center justify-center gap-1.5 rounded-full transition-all ${justAdded ? 'bg-[#1C3D1C] text-white scale-95' : 'bg-[#FDF6EC] hover:bg-[#F5EAD9] text-[#1C3D1C] border border-[#1C3D1C]/10'
+                    }`}
+                >
+                  <span className="text-xl leading-none font-bold mt-[-2px]">+</span>
+                  <span className="text-[12px] font-bold">{justAdded ? t('added') : t('addToCart')}</span>
+                </button>
+              ) : (
+                <div className="flex items-center gap-2.5 rounded-full bg-[#1C3D1C] px-1.5 h-[34px]">
+                  <button onClick={handleDecrease} className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">
+                    −
+                  </button>
+                  <span className="text-sm font-bold text-white min-w-[14px] text-center">
+                    {quantity}
+                  </span>
+                  <button onClick={handleAdd} className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">
+                    +
+                  </button>
+                </div>
+              )}
+            </div>
+
+          </div>
         </div>
       </div>
-
-      <div className="flex-shrink-0 flex items-center" onClick={(e) => e.stopPropagation()}>
-        {quantity === 0 ? (
-          <button
-            onClick={handleAdd}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-bold transition-all ${
-              justAdded
-                ? 'bg-[#1C3D1C] text-white scale-95'
-                : 'bg-[#1C3D1C] text-white hover:bg-[#2d5a2d] active:scale-95'
-            }`}
-          >
-            <span className="text-base leading-none">+</span>
-            <span>{justAdded ? t('added') : t('addToCart')}</span>
-          </button>
-        ) : (
-          <div className="flex items-center gap-2 rounded-full bg-[#1C3D1C] px-1.5 py-1">
-            <button
-              onClick={handleDecrease}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white transition-all hover:bg-white/30 active:scale-90 text-lg font-bold leading-none"
-            >
-              −
-            </button>
-            <span className="min-w-[20px] text-center text-sm font-bold text-white">
-              {quantity}
-            </span>
-            <button
-              onClick={handleAdd}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white transition-all hover:bg-white/30 active:scale-90 text-lg font-bold leading-none"
-            >
-              +
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
     </>
   );
 }

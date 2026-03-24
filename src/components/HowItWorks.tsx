@@ -14,54 +14,54 @@ const steps: {
   rotation: number;
   tapeColor: string;
 }[] = [
-  {
-    number: '01',
-    titleKey: 'step1Title',
-    descKey: 'step1Desc',
-    Icon: ShoppingCart,
-    rotation: -2,
-    tapeColor: '#E8927C',
-  },
-  {
-    number: '02',
-    titleKey: 'step2Title',
-    descKey: 'step2Desc',
-    Icon: Leaf,
-    rotation: 1.5,
-    tapeColor: '#52B788',
-  },
-  {
-    number: '03',
-    titleKey: 'step3Title',
-    descKey: 'step3Desc',
-    Icon: ChefHat,
-    rotation: -1,
-    tapeColor: '#E8927C',
-  },
-  {
-    number: '04',
-    titleKey: 'step4Title',
-    descKey: 'step4Desc',
-    Icon: Package,
-    rotation: 2,
-    tapeColor: '#D4A017',
-  },
-  {
-    number: '05',
-    titleKey: 'step5Title',
-    descKey: 'step5Desc',
-    Icon: Truck,
-    rotation: -1.5,
-    tapeColor: '#52B788',
-  },
-];
+    {
+      number: '01',
+      titleKey: 'step1Title',
+      descKey: 'step1Desc',
+      Icon: ShoppingCart,
+      rotation: -2,
+      tapeColor: '#ed8788',
+    },
+    {
+      number: '02',
+      titleKey: 'step2Title',
+      descKey: 'step2Desc',
+      Icon: Leaf,
+      rotation: 1.5,
+      tapeColor: '#52B788',
+    },
+    {
+      number: '03',
+      titleKey: 'step3Title',
+      descKey: 'step3Desc',
+      Icon: ChefHat,
+      rotation: -1,
+      tapeColor: '#ed8788',
+    },
+    {
+      number: '04',
+      titleKey: 'step4Title',
+      descKey: 'step4Desc',
+      Icon: Package,
+      rotation: 2,
+      tapeColor: '#D4A017',
+    },
+    {
+      number: '05',
+      titleKey: 'step5Title',
+      descKey: 'step5Desc',
+      Icon: Truck,
+      rotation: -1.5,
+      tapeColor: '#52B788',
+    },
+  ];
 
 // px of scroll between each new card starting to slide in
 const SCROLL_PER_CARD = 300;
 // px of scroll to complete one card's slide-in
 const SLIDE_DURATION = 200;
 // px of previous card still visible under the new one
-const CARD_PEEK = 16;
+const CARD_PEEK = 24;
 // px of rest at the end so all cards are visible before leaving the section
 const END_BUFFER = 600;
 
@@ -103,16 +103,31 @@ export default function HowItWorks() {
 
   return (
     <section
+      id="how-it-works"
       ref={sectionRef}
       className="bg-[#1B4332]"
       style={{ height: `${sectionHeight}px` }}
     >
       {/* Single sticky container — stays on screen for the entire section scroll */}
-      <div className="sticky top-0 h-screen flex flex-col">
+      <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
+        {/* Decorative background gradients for large screens */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="hidden lg:block absolute top-[10%] left-[-5%] w-[500px] h-[500px] bg-[#52B788]/20 rounded-full blur-[120px]" />
+          <div className="hidden lg:block absolute top-[40%] right-[-10%] w-[600px] h-[600px] bg-[#ed8788]/15 rounded-full blur-[100px]" />
+          <div className="hidden lg:block absolute bottom-[-5%] left-[10%] w-[700px] h-[700px] bg-[#D4A017]/15 rounded-full blur-[120px]" />
+
+          {/* Decorative shapes */}
+          <div className="hidden xl:block absolute top-[20%] right-[10%] opacity-10 rotate-45">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#FDF6EC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v8" /><path d="M8 12h8" /></svg>
+          </div>
+          <div className="hidden xl:block absolute bottom-[30%] left-[8%] opacity-10 -rotate-12">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FDF6EC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><path d="M3 9h18" /><path d="M9 21V9" /></svg>
+          </div>
+        </div>
 
         {/* Section header */}
-        <div className="flex-shrink-0 px-6 pt-16 pb-6 text-center text-[#FDF6EC]">
-          <p className="mb-2 mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#E8927C]">
+        <div className="relative z-10 flex-shrink-0 px-6 pt-16 pb-6 text-center text-[#FDF6EC]">
+          <p className="mb-2 mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#ed8788]">
             <img src="/images/logo.webp" alt="" className="inline-block h-4 w-auto mr-1 align-middle" /> {t('eyebrow')}
           </p>
           <h2 className="font-heading font-black text-4xl md:text-5xl mb-2">
@@ -135,46 +150,45 @@ export default function HowItWorks() {
             >
               {/* Rotated note */}
               <div
-                className="w-full max-w-sm"
+                className="w-full max-w-sm md:max-w-2xl lg:max-w-4xl"
                 style={{ transform: `rotate(${step.rotation}deg)`, transformOrigin: 'top center' }}
               >
                 {/* Tape strip */}
                 <div
-                  className="mx-auto w-14 h-5 rounded-[2px]"
+                  className="mx-auto w-14 h-5 md:w-24 md:h-8 rounded-[2px] -mb-2.5 md:-mb-4"
                   style={{
                     backgroundColor: step.tapeColor,
                     opacity: 0.85,
                     position: 'relative',
                     zIndex: 1,
-                    marginBottom: '-10px',
                   }}
                 />
 
                 {/* Note card */}
                 <div
-                  className="rounded-sm bg-[#FDF6EC] px-7 pt-6 pb-6"
+                  className="rounded-sm bg-[#FDF6EC] px-7 pt-6 pb-6 md:px-14 md:pt-12 md:pb-12"
                   style={{ boxShadow: '0 25px 70px rgba(0,0,0,0.45)' }}
                 >
-                  <div className="flex items-start justify-between mb-1">
+                  <div className="flex items-start justify-between mb-1 md:mb-2">
                     <span
-                      className="font-heading font-black leading-none select-none"
-                      style={{ fontSize: '4.5rem', color: '#1B4332', opacity: 0.07 }}
+                      className="font-heading font-black leading-none select-none text-[4.5rem] md:text-[6.5rem] lg:text-[8rem]"
+                      style={{ color: '#1B4332', opacity: 0.07 }}
                     >
                       {step.number}
                     </span>
-                    <step.Icon size={32} className="mt-2 text-[#1B4332]" />
+                    <step.Icon className="mt-2 text-[#1B4332] w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16" />
                   </div>
 
-                  <h3 className="font-heading font-black text-xl text-[#1B4332] mb-2 -mt-6">
+                  <h3 className="font-heading font-black text-xl md:text-3xl lg:text-4xl text-[#1B4332] mb-2 md:mb-4 -mt-6 md:-mt-10 lg:-mt-14">
                     {t(step.titleKey)}
                   </h3>
 
-                  <p className="text-[#1B4332]/65 text-sm leading-relaxed">
+                  <p className="text-[#1B4332]/65 text-sm md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed">
                     {t(step.descKey)}
                   </p>
 
-                  <div className="mt-4 flex justify-end">
-                    <img src="/images/logo.webp" alt="" className="h-10 w-auto" style={{ opacity: 0.15, filter: 'saturate(0)' }} />
+                  <div className="mt-4 md:mt-8 flex justify-end">
+                    <img src="/images/logo.webp" alt="" className="h-10 md:h-16 lg:h-20 w-auto" style={{ opacity: 0.15, filter: 'saturate(0)' }} />
                   </div>
                 </div>
               </div>

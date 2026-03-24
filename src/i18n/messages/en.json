@@ -3,7 +3,52 @@
     "title": "Hungry Bear",
     "subtitle": "EST. 2018 CATERING",
     "menu": "Menu",
-    "cart": "Cart"
+    "cart": "Cart",
+    "howItWorks": "How it works",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "forBusiness": "For businesses"
+  },
+  "b2b": {
+    "eyebrow": "Employee benefit",
+    "headline": "Lunch employees order themselves.",
+    "subheadline": "Up to 450 PLN/employee per month, tax-exempt. Zero admin on your side.",
+    "cta": "Fill in the form",
+    "heroTagline": "- a real benefit for your employees.",
+    "step1Title": "Get in touch",
+    "step1Desc": "If you're an employer looking for a great benefit for your team — call us or fill in the form. We'll call back within 24h.",
+    "step2Title": "Sign the agreement",
+    "step2Desc": "Set a monthly meal subsidy limit per employee. Up to 450 PLN per person is exempt from social contributions.",
+    "step3Title": "We activate your account",
+    "step3Desc": "Your employees get access to the GN Lunch app and order meals as part of their employee benefit.",
+    "step4Title": "Employees order themselves",
+    "step4Desc": "Each employee independently selects their favourite meals 3 days before delivery, with full visibility over their limit.",
+    "step5Title": "Fresh meals at the office",
+    "step5Desc": "We deliver daily to your designated office spot. When the budget runs out, employees top up themselves — by card, BLIK, or transfer.",
+    "trust1": "Up to 450 PLN/person",
+    "trust1Sub": "tax-exempt",
+    "trust2": "Zero admin",
+    "trust2Sub": "on the employer's side",
+    "trust3": "Full reports",
+    "trust3Sub": "download anytime",
+    "formTitle": "Let's talk about the benefit",
+    "formSub": "Fill in the form — we'll call you back within 24 business hours.",
+    "company": "Company name",
+    "contactPerson": "Full name",
+    "email": "Work email",
+    "phone": "Phone",
+    "employees": "Number of employees",
+    "employeesPlaceholder": "Select a range",
+    "employees1": "1–10 employees",
+    "employees2": "11–30 employees",
+    "employees3": "31–50 employees",
+    "employees4": "51–100 employees",
+    "employees5": "Over 100 employees",
+    "submit": "Call me back",
+    "submitting": "Sending...",
+    "successTitle": "Done!",
+    "successDesc": "We'll call you back within 24 business hours. Talk soon!",
+    "errorMsg": "Something went wrong. Call us: +48 732 999 072"
   },
   "menu": {
     "weeklyMenu": "Weekly Menu",
@@ -91,12 +136,19 @@
     "lodz": "Łódź",
     "katowice": "Katowice"
   },
+  "gallery": {
+    "eyebrow": "Straight from the kitchen",
+    "titleStart": "This is",
+    "titleHighlight": "your tomorrow's lunch.",
+    "subtitle": "Zero photoshop. Zero stock photos. Real food, real camera.",
+    "modalCta": "Order now"
+  },
   "hero": {
     "headline1": "Hungry?",
     "headline2": "The Bear gets it.",
-    "subheadline": "Fresh meals from INAO-certified ingredients — delivered straight to your office.",
+    "subheadline": "<b>Fresh</b>, healthy <b>meals</b>. Restaurant <b>quality</b> delivered straight to <b>Your</b> door.",
     "cta": "Order now",
-    "ctaSecondary": "See this week's menu",
+    "ctaSecondary": "For Business",
     "tag1": "INAO Ingredients",
     "tag2": "Fresh 24h",
     "tag3": "Office Delivery"
@@ -144,7 +196,8 @@
     "freshTitle": "Fresh within 24h",
     "freshDesc": "Your meal reaches you within 24 hours of being made. Zero artificial preservatives. Zero frozen food.",
     "noFakeTitle": "Food, not a diet",
-    "noFakeDesc": "We don't count calories for you. We just make great food — for meat lovers, vegetarians, and spice enthusiasts."
+    "noFakeDesc": "We don't count calories for you. We just make great food — for meat lovers, vegetarians, and spice enthusiasts.",
+    "cta": "Order now"
   },
   "faq": {
     "title": "Frequently asked questions",
@@ -186,6 +239,12 @@
   },
   "footer": {
     "contact": "Contact",
+    "pages": "Pages",
+    "legalLinks": "Legal Information",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "companyDetails": "Company Details",
+    "companyInfo": "The aforementioned business is conducted by Katarzyna Głuchowska, an entrepreneur running a business under the name \"Two Squares Katarzyna Głuchowska\" based in Bojano (84-207) at ul. Partyzantów Kaszubskich 19, registered in the Central Register and Information on Economic Activity (CEIDG), NIP (Tax ID): 534-217-20-08, REGON: 367356273, owner of the catering business operating under the Głodny Niedźwiedź brand. The seller holds an individual registration number in the BDO register (waste management) - 000216527.",
     "rights": "All rights reserved",
     "tagline": "Real food for real people."
   }

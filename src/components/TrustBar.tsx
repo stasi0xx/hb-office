@@ -22,7 +22,7 @@ export default function TrustBar() {
             key={i}
             className="inline-flex flex-shrink-0 items-center gap-2 px-5 py-2.5 bg-white rounded-full border border-[#1B4332]/10 font-bold text-sm text-[#1B4332] shadow-sm"
           >
-            <item.Icon size={16} strokeWidth={2} className="text-[#E8927C]" />
+            <item.Icon size={16} strokeWidth={2} className="text-[#ed8788]" />
             {t(item.labelKey)}
           </span>
         ))}

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 export default function FooterSection() {
   const tCta = useTranslations('footerCta');
   const tFooter = useTranslations('footer');
+  const tNav = useTranslations('nav');
 
   const scrollToMenu = () => {
     const el = document.getElementById('menu-section');
@@ -17,9 +18,9 @@ export default function FooterSection() {
   return (
     <>
       {/* Footer CTA */}
-      <section className="bg-[#1B4332] px-6 py-16 relative overflow-hidden">
-        <div className="absolute -bottom-8 -right-4 opacity-5 pointer-events-none select-none text-[200px] leading-none">
-          🐾
+      <section id="contact" className="bg-[#1B4332] px-6 py-16 relative overflow-hidden">
+        <div className="absolute -bottom-12 -right-12 opacity-5 pointer-events-none select-none">
+          <img src="/images/logo.webp" alt="" className="w-96 h-auto" />
         </div>
 
         <div className="mx-auto max-w-2xl text-center relative z-10">
@@ -28,7 +29,7 @@ export default function FooterSection() {
           </h2>
           <button
             onClick={scrollToMenu}
-            className="w-full rounded-full bg-[#E8927C] px-8 py-5 font-heading font-extrabold text-lg text-white shadow-2xl transition-all hover:opacity-90 active:scale-[0.98] mb-6"
+            className="w-full rounded-full bg-[#ed8788] px-8 py-5 font-heading font-extrabold text-lg text-white shadow-2xl transition-all hover:opacity-90 active:scale-[0.98] mb-6"
           >
             {tCta('cta')} →
           </button>
@@ -39,51 +40,74 @@ export default function FooterSection() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#152b23] px-6 py-8">
-        <div className="mx-auto max-w-2xl">
-          {/* Logo row */}
-          <div className="flex items-center gap-3 mb-5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8927C]">
-              <span className="font-heading font-black text-sm text-white leading-none">🐾</span>
+      <footer className="bg-[#152b23] px-6 pt-16 pb-8 border-t border-[#1b3a2e]">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
+
+            {/* Pages Col */}
+            <div className="col-span-1">
+              <p className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
+                {tFooter('pages')}
+              </p>
+              <ul className="flex flex-col gap-4">
+                <li><a href="/#menu-section" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('menu')}</a></li>
+                <li><a href="/dla-firm" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('forBusiness')}</a></li>
+                <li><a href="/#how-it-works" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('howItWorks')}</a></li>
+                <li><a href="/#faq" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('faq')}</a></li>
+              </ul>
             </div>
-            <div>
-              <p className="font-heading font-black text-base text-white leading-none">Głodny Niedźwiedź</p>
-              <p className="text-[10px] text-[#E8927C]/70 uppercase tracking-widest">Est. 2018 Catering</p>
+
+            {/* Legal Col */}
+            <div className="col-span-1">
+              <p className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
+                {tFooter('legalLinks')}
+              </p>
+              <ul className="flex flex-col gap-4">
+                <li><a href="/regulamin" className="text-sm text-white/60 hover:text-white transition-colors">{tFooter('termsOfService')}</a></li>
+                <li><a href="/polityka-prywatnosci" className="text-sm text-white/60 hover:text-white transition-colors">{tFooter('privacyPolicy')}</a></li>
+              </ul>
+            </div>
+
+            {/* Contact Col */}
+            <div className="col-span-2 md:col-span-2 lg:col-span-1">
+              <p className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
+                {tFooter('contact')}
+              </p>
+              <ul className="flex flex-col gap-4">
+                <li><a href="tel:+48732999072" className="text-sm text-white/60 hover:text-white transition-colors">+48 732 999 072</a></li>
+                <li><a href="mailto:biuro@glodnyniedzwiedz.pl" className="text-sm text-white/60 hover:text-white transition-colors">biuro@glodnyniedzwiedz.pl</a></li>
+              </ul>
+            </div>
+
+            {/* Brand Col */}
+            <div className="col-span-2 md:col-span-4 lg:col-span-3 lg:pl-12 lg:border-l border-white/10">
+              <div className="mb-6">
+                <img src="/images/logo.webp" alt="Głodny Niedźwiedź" className="h-10 w-auto" />
+              </div>
+
+              <p className="text-sm text-white/60 mb-6 italic">
+                {tFooter('tagline')}
+              </p>
+
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#ed8788] mb-3">
+                  {tFooter('companyDetails')}
+                </p>
+                <p className="text-[11px] text-white/40 leading-relaxed text-justify">
+                  {tFooter('companyInfo')}
+                </p>
+              </div>
             </div>
           </div>
 
-          <p className="text-sm text-white/40 italic mb-6">{tFooter('tagline')}</p>
-
-          {/* Contact */}
-          <div className="mb-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#E8927C] mb-3">
-              {tFooter('contact')}
-            </p>
-            <a
-              href="tel:+48732999072"
-              className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-2"
-            >
-              <svg className="h-4 w-4 text-[#E8927C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              +48 732 999 072
-            </a>
-            <a
-              href="mailto:biuro@glodnyniedzwiedz.pl"
-              className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
-            >
-              <svg className="h-4 w-4 text-[#E8927C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              biuro@glodnyniedzwiedz.pl
-            </a>
-          </div>
-
-          {/* Bottom */}
-          <div className="border-t border-white/10 pt-4">
-            <p className="text-xs text-white/30 text-center">
+          {/* Bottom Row */}
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-white/40 text-center md:text-left">
               © {new Date().getFullYear()} Głodny Niedźwiedź. {tFooter('rights')}.
             </p>
+            <div className="flex items-center gap-4 opacity-50">
+              {/* Optional space for future icons */}
+            </div>
           </div>
         </div>
       </footer>
