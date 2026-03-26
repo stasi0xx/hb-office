@@ -94,11 +94,20 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Database error' }, { status: 500 });
       }
 
+      // Generate registration token for post-order account creation
+      const { data: tokenRow } = await supabase
+        .from('registration_tokens')
+        .insert({ order_id: order.id, email: customer.email })
+        .select('id')
+        .single();
+
+      const registerParam = tokenRow?.id ? `&register=${tokenRow.id}` : '';
+
       const session = await getStripe().checkout.sessions.create({
         payment_method_types: ['card', 'blik', 'p24'],
         line_items: lineItems,
         mode: 'payment',
-        success_url: `${baseUrl}/${locale}/success?orderId=${order.id}&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${baseUrl}/${locale}/success?orderId=${order.id}&session_id={CHECKOUT_SESSION_ID}${registerParam}`,
         cancel_url: `${baseUrl}/${locale}/checkout`,
         customer_email: customer.email,
         metadata: {

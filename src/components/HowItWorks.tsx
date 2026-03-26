@@ -116,13 +116,7 @@ export default function HowItWorks() {
           <div className="hidden lg:block absolute top-[40%] right-[-10%] w-[600px] h-[600px] bg-[#ed8788]/15 rounded-full blur-[100px]" />
           <div className="hidden lg:block absolute bottom-[-5%] left-[10%] w-[700px] h-[700px] bg-[#D4A017]/15 rounded-full blur-[120px]" />
 
-          {/* Decorative shapes */}
-          <div className="hidden xl:block absolute top-[20%] right-[10%] opacity-10 rotate-45">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#FDF6EC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v8" /><path d="M8 12h8" /></svg>
-          </div>
-          <div className="hidden xl:block absolute bottom-[30%] left-[8%] opacity-10 -rotate-12">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FDF6EC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><path d="M3 9h18" /><path d="M9 21V9" /></svg>
-          </div>
+
         </div>
 
         {/* Section header */}

@@ -7,7 +7,8 @@
     "howItWorks": "How it works",
     "faq": "FAQ",
     "contact": "Contact",
-    "forBusiness": "For businesses"
+    "forBusiness": "For businesses",
+    "myAccount": "My account"
   },
   "b2b": {
     "eyebrow": "Employee benefit",
@@ -102,6 +103,8 @@
     "total": "Total",
     "deliveryWindow": "Delivery 08:00–10:00",
     "requiredField": "This field is required",
+    "invalidStreetForCity": "Street not found in the selected city",
+    "invalidFloorRoom": "Please enter a floor or room number, not a postal code",
     "invalidEmail": "Please enter a valid email",
     "invalidPhone": "Please enter a valid phone number"
   },
@@ -247,5 +250,186 @@
     "companyInfo": "The aforementioned business is conducted by Katarzyna Głuchowska, an entrepreneur running a business under the name \"Two Squares Katarzyna Głuchowska\" based in Bojano (84-207) at ul. Partyzantów Kaszubskich 19, registered in the Central Register and Information on Economic Activity (CEIDG), NIP (Tax ID): 534-217-20-08, REGON: 367356273, owner of the catering business operating under the Głodny Niedźwiedź brand. The seller holds an individual registration number in the BDO register (waste management) - 000216527.",
     "rights": "All rights reserved",
     "tagline": "Real food for real people."
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Track orders and earn loyalty points",
+      "googleButton": "Continue with Google",
+      "orDivider": "or",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submitButton": "Sign in",
+      "loading": "Loading…",
+      "invalidCredentials": "Invalid email or password.",
+      "genericError": "Something went wrong. Please try again.",
+      "noAccount": "Don't have an account?",
+      "orderFirst": "Place your first order"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "One step to track orders and earn points",
+      "googleButton": "Sign up with Google",
+      "orDivider": "or",
+      "emailInfo": "Account will be created for:",
+      "passwordLabel": "Set password",
+      "passwordPlaceholder": "At least 8 characters",
+      "submitButton": "Create account",
+      "loading": "Creating account…",
+      "passwordTooShort": "Password must be at least 8 characters.",
+      "alreadyRegistered": "An account with this email already exists. Sign in.",
+      "genericError": "Something went wrong. Please try again.",
+      "invalidToken": "Registration link is invalid.",
+      "tokenUsed": "Registration link has already been used.",
+      "tokenExpired": "Registration link has expired.",
+      "invalidTokenTitle": "Invalid link",
+      "backToMenu": "Back to menu",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "konto": {
+      "shell": {
+        "clientPanel": "My account",
+        "nav": {
+          "dashboard": "Home",
+          "history": "History",
+          "addresses": "Addresses",
+          "points": "Points",
+          "profile": "Profile"
+        },
+        "comingSoon": "Soon",
+        "loggingOut": "Logging out…",
+        "logout": "Log out"
+      },
+      "addresses": {
+        "title": "Delivery addresses",
+        "addButton": "Add address",
+        "empty": "No saved addresses",
+        "emptySub": "Add your office address to speed up ordering",
+        "defaultBadge": "Default",
+        "setDefault": "Set as default",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteConfirmQuestion": "Delete this address?",
+        "deleteConfirmYes": "Yes, delete",
+        "cancel": "Cancel",
+        "form": {
+          "addTitle": "New address",
+          "editTitle": "Edit address",
+          "labelField": "Location name",
+          "labelPlaceholder": "e.g. Main office",
+          "street": "Street and number",
+          "streetPlaceholder": "e.g. 84/92 Marszałkowska St",
+          "zip": "Postal code",
+          "zipPlaceholder": "00-000",
+          "city": "City",
+          "cityPlaceholder": "e.g. Warsaw",
+          "floorRoom": "Floor / room / description",
+          "floorRoomPlaceholder": "e.g. 3rd floor, reception (optional)",
+          "isDefault": "Set as default address",
+          "save": "Save address",
+          "saving": "Saving…",
+          "errorGeneric": "Something went wrong. Please try again."
+        }
+      },
+      "history": {
+        "title": "Order history",
+        "ordersCount": "orders",
+        "totalSpent": "total",
+        "empty": "No orders yet",
+        "emptySub": "Your orders will appear here after you place your first one",
+        "browseMenu": "Browse menu",
+        "status": {
+          "new": "New",
+          "confirmed": "Confirmed",
+          "delivered": "Delivered",
+          "cancelled": "Cancelled"
+        },
+        "payment": {
+          "stripe": "Card",
+          "cash": "Cash"
+        },
+        "total": "Total",
+        "itemsSuffix": "items",
+        "collapseItems": "Hide"
+      },
+      "dashboard": {
+        "nextDelivery": "Next delivery",
+        "moreItems": "+{count} more items",
+        "totalAmount": "Total amount",
+        "noOrders": "No upcoming deliveries",
+        "noOrdersSub": "Order now and enjoy a great lunch at work",
+        "browseMenu": "Browse menu",
+        "points": "Points",
+        "loyaltyPoints": "loyalty points",
+        "pointsGoal": "500 pts = free meal",
+        "thisWeek": "This week",
+        "orderNext": "Order for the next day",
+        "orderNextSub": "Browse the current weekly menu",
+        "checkMenu": "Check menu",
+        "calendarLabels": {
+          "delivery": "delivery",
+          "edit": "edit",
+          "order": "order"
+        },
+        "weekDayHeaders": "Mon,Tue,Wed,Thu,Fri",
+        "dayNames": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
+        "months": "January,February,March,April,May,June,July,August,September,October,November,December"
+      },
+      "profil": {
+        "title": "Profile",
+        "personalData": "Account details",
+        "fullName": "Full name",
+        "fullNamePlaceholder": "e.g. John Smith",
+        "email": "Email address",
+        "emailHint": "Email address cannot be changed",
+        "phone": "Phone number",
+        "phonePlaceholder": "e.g. +48 732 999 072",
+        "save": "Save changes",
+        "saving": "Saving…",
+        "saved": "Saved",
+        "errorGeneric": "Something went wrong. Please try again.",
+        "security": "Security",
+        "resetPasswordTitle": "Change password",
+        "resetPasswordSub": "We'll send a password reset link to your email address",
+        "resetPasswordButton": "Send link",
+        "resetPasswordSent": "Link sent! Check your inbox.",
+        "dangerZone": "Danger zone",
+        "deleteAccountTitle": "Delete account",
+        "deleteAccountSub": "Permanently deletes your account and all your data. This cannot be undone.",
+        "deleteAccountButton": "Delete account",
+        "deleteModal": {
+          "title": "Delete account?",
+          "body": "Your account and all data (order history, addresses, points) will be permanently deleted. This cannot be undone.",
+          "confirmLabel": "Type DELETE to confirm",
+          "confirmPlaceholder": "DELETE",
+          "cancel": "Cancel",
+          "confirm": "Yes, delete my account",
+          "deleting": "Deleting…"
+        }
+      }
+    },
+    "linkAccount": {
+      "title": "Link account",
+      "subtitle": "Your Google email differs from the order email. Enter the email used when ordering to link accounts.",
+      "googleEmailLabel": "Your Google email",
+      "emailLabel": "Email used when ordering",
+      "sendCode": "Send verification code",
+      "sending": "Sending…",
+      "retryIn": "Resend in {seconds}s",
+      "rateLimited": "Wait {seconds}s before trying again.",
+      "sendError": "Failed to send code. Check the email and try again.",
+      "codeSent": "We sent a 6-digit code to {email}",
+      "codeLabel": "Verification code",
+      "verifyButton": "Verify and link",
+      "verifying": "Verifying…",
+      "invalidCode": "Invalid code. Check your email and try again.",
+      "codeExpired": "Code expired. Send a new one.",
+      "changeEmail": "Change email",
+      "successTitle": "Accounts linked!",
+      "successMessage": "Your orders are now available in the panel. Redirecting…"
+    }
   }
 }

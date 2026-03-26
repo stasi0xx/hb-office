@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useCartStore } from '@/store/cart';
 
 // Dodaj zdjęcia niedźwiedzi do public/images/:
 //   bear-fresh.webp    — miś w kucharskiej czapce / z garnkiem
@@ -151,6 +152,15 @@ export default function Differentiators() {
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionVisible, setSectionVisible] = useState(false);
 
+  const { itemCount } = useCartStore();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const cartItemCount = hasMounted ? itemCount() : 0;
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -176,7 +186,7 @@ export default function Differentiators() {
       </section>
 
       <div
-        className={`fixed bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-out ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
+        className={`fixed bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-out ${sectionVisible && cartItemCount === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
           }`}
       >
         <a

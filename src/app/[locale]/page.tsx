@@ -15,6 +15,7 @@ import Differentiators from '@/components/Differentiators';
 import FaqSection from '@/components/FaqSection';
 import FooterSection from '@/components/FooterSection';
 import SocialProof from '@/components/SocialProof';
+import MenuParallaxBackground from '@/components/MenuParallaxBackground';
 import { getAvailableDates } from '@/lib/utils';
 import menuData from '@/data/menu.json';
 
@@ -88,22 +89,14 @@ export default function HomePage() {
 
       {/* Menu section */}
       <div id="menu-section" className="relative w-full">
+        <MenuParallaxBackground />
+
         {/* Decorative background gradients for large screens */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
           <div className="hidden lg:block absolute top-40 -left-[15%] w-[600px] h-[600px] bg-[#ed8788]/20 rounded-full blur-[120px]" />
           <div className="hidden lg:block absolute top-[30%] -right-[10%] w-[500px] h-[500px] bg-[#1B4332]/10 rounded-full blur-[100px]" />
           <div className="hidden lg:block absolute bottom-[20%] -left-[10%] w-[700px] h-[700px] bg-[#E8967A]/15 rounded-full blur-[120px]" />
           <div className="hidden lg:block absolute bottom-[5%] -right-[15%] w-[600px] h-[600px] bg-[#EAF0CE]/40 rounded-full blur-[100px]" />
-          {/* Decorative shapes / patterns */}
-          <div className="hidden xl:block absolute top-60 right-[5%] opacity-10 rotate-12">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
-          </div>
-          <div className="hidden xl:block absolute top-[45%] left-[3%] opacity-10 -rotate-12">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ed8788" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
-          </div>
-          <div className="hidden xl:block absolute bottom-[15%] right-[4%] opacity-10 rotate-45">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8967A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M5 12h14" /><path d="M19 5l-14 14" /><path d="M5 5l14 14" /></svg>
-          </div>
         </div>
 
         {/* Order info bar */}

@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const REVIEW_AUTHORS = [
   'Joanna StMu',
@@ -128,6 +130,8 @@ export default function SocialProof() {
   const [exitDir, setExitDir] = useState<'left' | 'right'>('left');
   const [modalIdx, setModalIdx] = useState<number | null>(null);
   const touchStart = useRef<number | null>(null);
+  const foodRef = useRef<HTMLDivElement>(null);
+  const bearLeftRef = useRef<HTMLDivElement>(null);
 
   const reviews = REVIEW_AUTHORS.map((author, i) => ({
     author,
@@ -141,6 +145,45 @@ export default function SocialProof() {
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Parallax dla dania po prawej
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!foodRef.current || !sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.to(foodRef.current, {
+        yPercent: -35,
+        rotation: 20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      });
+
+      // Misiek z lewej wyłania się przy scrollu
+      gsap.fromTo(
+        bearLeftRef.current,
+        { x: '-100%', yPercent: 40, rotation: -15, opacity: 0 },
+        {
+          x: '-20%',
+          yPercent: -10,
+          rotation: 5,
+          opacity: 1,
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            scrub: true,
+          },
+        }
+      );
+    });
+    return () => ctx.revert();
   }, []);
 
   function navigate(dir: 'next' | 'prev') {
@@ -181,13 +224,7 @@ export default function SocialProof() {
         <div className="hidden lg:block absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-[#1B4332]/5 rounded-full blur-[120px]" />
         <div className="hidden lg:block absolute bottom-[10%] left-[10%] w-[600px] h-[600px] bg-[#ed8788]/10 rounded-full blur-[120px]" />
 
-        {/* Decorative shapes */}
-        <div className="hidden xl:block absolute top-20 left-[10%] opacity-10 rotate-12">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F4B400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-        </div>
-        <div className="hidden xl:block absolute bottom-40 right-[15%] opacity-10 -rotate-12">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /></svg>
-        </div>
+
       </div>
 
       <style>{`
@@ -216,7 +253,17 @@ export default function SocialProof() {
         }
       `}</style>
 
-      {/* Bear */}
+      {/* Jedno danie po prawej — subtelny blur parallax, tylko na desktop */}
+      <div ref={foodRef} className="hidden lg:block absolute top-[30%] -right-[6%] w-[420px] aspect-square rounded-full overflow-hidden opacity-[0.18] blur-[10px] pointer-events-none z-0">
+        <Image src="/images/food-6.webp" alt="" fill className="object-cover" />
+      </div>
+
+      {/* Misiek z lewej — wyłania się przy scrollu */}
+      <div ref={bearLeftRef} className="hidden lg:block absolute top-[45%] left-0 w-[380px] aspect-square pointer-events-none z-0 drop-shadow-2xl opacity-60">
+        <Image src="/images/bear-left.webp" alt="" fill className="object-contain object-bottom" />
+      </div>
+
+      {/* Bear z gwiazdką — prawy górny róg, animacja wyskakiwania */}
       <div
         className="pointer-events-none absolute -top-4 -right-8 w-64 select-none z-10"
         style={

@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useCartStore } from '@/store/cart';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -85,6 +86,15 @@ export default function FoodGallery() {
   const [sectionVisible, setSectionVisible] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const { itemCount } = useCartStore();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const cartItemCount = hasMounted ? itemCount() : 0;
 
   // --- Section visibility (floating button) ---
   useEffect(() => {
@@ -243,7 +253,7 @@ export default function FoodGallery() {
 
       {/* Floating CTA */}
       <div
-        className={`fixed bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-out ${sectionVisible && !isModalVisible
+        className={`fixed bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-out ${sectionVisible && !isModalVisible && cartItemCount === 0
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-8 pointer-events-none'
           }`}

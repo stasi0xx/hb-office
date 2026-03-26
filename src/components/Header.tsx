@@ -51,10 +51,12 @@ export default function Header() {
       <div className="mx-auto max-w-2xl px-5 py-3.5">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <img src="/images/logo.webp" alt="Głodny Niedźwiedź" className="h-9 w-auto" />
+          <Link href="/">
+            <img src="/images/logo.webp" alt="Głodny Niedźwiedź" className="h-9 w-auto" />
+          </Link>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3" ref={menuRef}>
+          <div className="flex items-center gap-3 relative" ref={menuRef}>
             <LanguageToggle />
             <button
               onClick={openCart}
@@ -85,7 +87,7 @@ export default function Header() {
 
             {/* Dropdown menu */}
             {menuOpen && (
-              <div className="absolute top-14 right-4 z-50 w-52 rounded-2xl bg-[#1B4332] border border-white/10 shadow-2xl overflow-hidden">
+              <div className="absolute top-[calc(100%+8px)] right-0 z-50 w-52 rounded-2xl bg-[#1B4332] border border-white/10 shadow-2xl overflow-hidden">
                 {anchorLinks.map((link) => (
                   <button
                     key={link.href}
@@ -95,6 +97,19 @@ export default function Header() {
                     {link.label}
                   </button>
                 ))}
+                <Link
+                  href="/konto"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex w-full items-center gap-2 px-5 py-3.5 text-left text-sm font-semibold text-white hover:bg-white/10 transition-colors border-b border-white/5"
+                >
+                  <svg className="h-4 w-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                  {t('myAccount')}
+                  <svg className="h-3.5 w-3.5 ml-auto opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
                 <Link
                   href="/dla-firm"
                   onClick={() => setMenuOpen(false)}

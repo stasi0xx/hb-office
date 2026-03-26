@@ -1,7 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const faqs = [
   { q: 'q1', a: 'a1' },
@@ -14,10 +17,36 @@ const faqs = [
 export default function FaqSection() {
   const t = useTranslations('faq');
   const [open, setOpen] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const foodRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!foodRef.current || !sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.to(foodRef.current, {
+        yPercent: -40,
+        rotation: -20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="faq" className="bg-[#FDF6EC] px-6 py-14">
-      <div className="mx-auto max-w-2xl">
+    <section ref={sectionRef} id="faq" className="bg-[#FDF6EC] px-6 py-14 relative overflow-hidden">
+      {/* Jedno danie po lewej — nie wychodzi poza górną krawędź, tylko na desktop */}
+      <div ref={foodRef} className="hidden lg:block absolute top-[10%] -left-[6%] w-[400px] aspect-square rounded-full overflow-hidden opacity-[0.18] blur-[10px] pointer-events-none z-0">
+        <Image src="/images/food-2.webp" alt="" fill className="object-cover" />
+      </div>
+      
+      <div className="mx-auto max-w-2xl relative z-10">
         <h2 className="font-heading font-black text-4xl text-[#1B4332] text-center mb-10">
           {t('title')}
         </h2>

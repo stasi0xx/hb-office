@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useCartStore } from '@/store/cart';
-import { Clock, Mail } from 'lucide-react';
+import { Clock, Mail, Star } from 'lucide-react';
 
 function SuccessContent() {
   const t = useTranslations('success');
@@ -14,6 +14,7 @@ function SuccessContent() {
   const [hasCleared, setHasCleared] = useState(false);
 
   const orderId = searchParams.get('orderId') || '';
+  const registrationToken = searchParams.get('register') || '';
 
   useEffect(() => {
     if (!hasCleared) {
@@ -96,9 +97,28 @@ function SuccessContent() {
             </div>
           </div>
 
+          {/* Create account CTA */}
+          {registrationToken && (
+            <div className="mb-4 rounded-2xl bg-[#1C3D1C] p-5 text-left">
+              <div className="mb-3 flex items-center gap-2">
+                <Star className="h-5 w-5 text-[#D4A017] flex-shrink-0" />
+                <p className="font-heading text-base text-white">Załóż konto w 30 sekund</p>
+              </div>
+              <p className="mb-4 text-xs text-white/60 leading-relaxed">
+                Śledź zamówienie, zarządzaj adresami i zbieraj punkty lojalnościowe za każdy lunch.
+              </p>
+              <Link
+                href={`/rejestracja?token=${registrationToken}`}
+                className="block w-full rounded-xl bg-[#E8967A] py-3 text-center font-heading text-base text-white transition hover:bg-[#d4785e]"
+              >
+                Utwórz konto →
+              </Link>
+            </div>
+          )}
+
           <Link
             href="/"
-            className="inline-block w-full rounded-2xl bg-[#1C3D1C] py-4 font-heading text-xl text-white shadow-lg transition-all hover:bg-[#2d5a2d] active:scale-98"
+            className="inline-block w-full rounded-2xl border border-[#1C3D1C]/20 bg-white py-4 font-heading text-xl text-[#1C3D1C] shadow-sm transition-all hover:bg-[#FDF6EC] active:scale-98 text-center"
           >
             {t('backToMenu')} →
           </Link>
