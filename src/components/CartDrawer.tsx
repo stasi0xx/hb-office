@@ -4,20 +4,24 @@ import { useCartStore } from '@/store/cart';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useEffect, useState } from 'react';
-import { parseMenuDate } from '@/lib/utils';
-import { ShoppingBag, Tag, X, Trash2, Minus, Plus } from 'lucide-react';
+import { parseMenuDate, formatPrice } from '@/lib/utils';
+import { getSiteConfig } from '@/config/sites';
+import { ShoppingBag, Tag, Truck, X, Trash2, Minus, Plus } from 'lucide-react';
 
 export default function CartDrawer() {
   const t = useTranslations('cart');
   const locale = useLocale();
-  const { items, isOpen, closeCart, total, originalTotal, savings, itemCount, removeItem, updateQuantity } =
+  const { items, isOpen, closeCart, total, originalTotal, savings, itemCount, removeItem, updateQuantity, deliveryCost, grandTotal } =
     useCartStore();
 
   const [mounted, setMounted] = useState(false);
+  const { currency } = getSiteConfig();
 
   const count = mounted ? itemCount() : 0;
   const totalAmount = mounted ? total() : 0;
   const savingsAmount = mounted ? savings() : 0;
+  const delivery = mounted ? deliveryCost() : 0;
+  const grand = mounted ? grandTotal() : 0;
 
   useEffect(() => {
     setMounted(true);
@@ -36,7 +40,7 @@ export default function CartDrawer() {
 
   const formatDate = (dateStr: string) => {
     const d = parseMenuDate(dateStr);
-    return d.toLocaleDateString(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+    return d.toLocaleDateString(locale === 'pl' ? 'pl-PL' : locale === 'nl' ? 'nl-NL' : 'en-GB', {
       weekday: 'short',
       day: 'numeric',
       month: 'short',
@@ -102,8 +106,6 @@ export default function CartDrawer() {
             </div>
           ) : (
             <div className="flex flex-col gap-4 pb-4">
-
-              {/* Items grouped by date */}
               {Object.entries(groupedItems).map(([date, dateItems]) => (
                 <div key={date}>
                   <div className="flex items-center gap-2 mb-2">
@@ -121,7 +123,7 @@ export default function CartDrawer() {
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-600 text-[#1C3D1C] leading-snug">{item.name}</p>
                           <p className="mt-1 text-sm font-700 text-[#E8967A]">
-                            {(item.price * item.quantity).toFixed(2).replace('.', ',')} zł
+                            {formatPrice(item.price * item.quantity, currency)}
                           </p>
                         </div>
                         <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -159,6 +161,7 @@ export default function CartDrawer() {
         {/* Footer */}
         {count > 0 && (
           <div className="border-t border-gray-100 px-5 py-4 pb-safe">
+            {/* Online discount (PL site only) */}
             {savingsAmount > 0 && (
               <div className="flex items-center justify-between mb-2 rounded-xl bg-[#D4A843]/15 px-3 py-2 border border-[#D4A843]/30">
                 <div className="flex items-center gap-2">
@@ -168,16 +171,42 @@ export default function CartDrawer() {
                   </span>
                 </div>
                 <span className="text-sm font-800 text-[#D4A843]">
-                  -{savingsAmount.toFixed(2).replace('.', ',')} zł
+                  -{formatPrice(savingsAmount, currency)}
                 </span>
               </div>
             )}
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-700 text-[#1C3D1C]">{t('total')}</span>
-              <span className="font-heading text-2xl text-[#1C3D1C]">
-                {totalAmount.toFixed(2).replace('.', ',')} zł
+
+            {/* Items subtotal */}
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-[#1C3D1C]/70">{t('total')}</span>
+              <span className="text-sm font-700 text-[#1C3D1C]">
+                {formatPrice(totalAmount, currency)}
               </span>
             </div>
+
+            {/* Delivery cost (NL sites) */}
+            {delivery > 0 && (
+              <div className="flex items-center justify-between mb-2 rounded-xl bg-[#1B4332]/5 px-3 py-2">
+                <div className="flex items-center gap-2">
+                  <Truck className="h-4 w-4 text-[#1B4332]/60" />
+                  <span className="text-sm font-600 text-[#1C3D1C]">{t('deliveryCost')}</span>
+                </div>
+                <span className="text-sm font-700 text-[#1C3D1C]">
+                  {formatPrice(delivery, currency)}
+                </span>
+              </div>
+            )}
+
+            {/* Grand total */}
+            <div className="flex items-center justify-between mb-4 mt-1">
+              <span className="font-700 text-[#1C3D1C]">
+                {delivery > 0 ? t('grandTotal') : t('total')}
+              </span>
+              <span className="font-heading text-2xl text-[#1C3D1C]">
+                {formatPrice(grand, currency)}
+              </span>
+            </div>
+
             <Link
               href="/checkout"
               onClick={closeCart}

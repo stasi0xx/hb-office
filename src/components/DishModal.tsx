@@ -2,7 +2,17 @@
 
 import { useEffect } from 'react';
 import { useCartStore, parsePrice, ONLINE_DISCOUNT } from '@/store/cart';
+import { getSiteConfig } from '@/config/sites';
 import { useTranslations } from 'next-intl';
+
+const { currency } = getSiteConfig();
+
+function formatPrice(amount: number): string {
+  if (currency === 'EUR') {
+    return `€${amount.toFixed(2).replace('.', ',')}`;
+  }
+  return `${amount.toFixed(2).replace('.', ',')} zł`;
+}
 
 // — Testowe dane szczegółów dania — zastąpić prawdziwymi z menu.json
 const TEST_DETAIL = {
@@ -11,6 +21,8 @@ const TEST_DETAIL = {
     'Klasyczny schabowy smażony na maśle klarowanym, podawany z puszystymi kopytkami i zasmażaną kapustą z kminkiem. Tak jak u babci — bez żadnych skrótów ani półproduktów.',
   ingredients:
     'wieprzowina 93%, mąka pszenna, jajko, bułka tarta, masło klarowane, kapusta biała, cebula, kminek, sól, pieprz czarny',
+  weight: '450 g',
+  storage: 'Przechowywać w lodówce w temperaturze od 2°C do 6°C.',
   macros: [
     { label: 'Kcal', value: '680' },
     { label: 'Białko', value: '42 g' },
@@ -89,9 +101,9 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
             <h2 className="font-heading font-black text-2xl leading-tight text-[#1B4332]">{name}</h2>
             <div className="mt-2 flex items-center gap-2.5">
               <span className="text-xl font-extrabold text-[#ed8788]">
-                {discountedPrice.toFixed(2).replace('.', ',')} zł
+                {formatPrice(discountedPrice)}
               </span>
-              <span className="text-sm font-medium text-gray-400 line-through">{priceStr}</span>
+              <span className="text-sm font-medium text-gray-400 line-through">{formatPrice(originalPrice)}</span>
               <span className="rounded-full bg-[#D4A017] px-2 py-0.5 text-[10px] font-extrabold text-white">
                 -5% online
               </span>
@@ -101,10 +113,18 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
           {/* Opis */}
           <p className="text-sm leading-relaxed text-[#1B4332]/80">{TEST_DETAIL.description}</p>
 
+          {/* Waga */}
+          <section>
+            <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-1.5">
+              {t('weight')}
+            </h3>
+            <p className="text-sm text-[#1B4332]/80 leading-relaxed font-semibold">{TEST_DETAIL.weight}</p>
+          </section>
+
           {/* Skład */}
           <section>
             <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-1.5">
-              Skład
+              {t('ingredients')}
             </h3>
             <p className="text-sm text-[#1B4332]/70 leading-relaxed">{TEST_DETAIL.ingredients}</p>
           </section>
@@ -112,7 +132,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
           {/* Makro */}
           <section>
             <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-2">
-              Wartości odżywcze
+              {t('nutrition')}
             </h3>
             <div className="grid grid-cols-2 gap-2">
               {TEST_DETAIL.macros.map((m) => (
@@ -127,7 +147,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
           {/* Alergeny */}
           <section>
             <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-2">
-              Alergeny
+              {t('allergens')}
             </h3>
             <div className="flex flex-wrap gap-2">
               {TEST_DETAIL.allergens.map((a) => (
@@ -142,12 +162,22 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
           </section>
 
           {/* Podgrzanie */}
-          <section className="pb-2">
+          <section>
             <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-1.5">
-              Jak podgrzać?
+              {t('reheat')}
             </h3>
             <div className="rounded-2xl bg-[#1B4332]/5 px-4 py-3">
               <p className="text-sm text-[#1B4332]/80 leading-relaxed">{TEST_DETAIL.reheat}</p>
+            </div>
+          </section>
+
+          {/* Przechowywanie */}
+          <section className="pb-2">
+            <h3 className="font-heading font-bold text-sm uppercase tracking-wider text-[#1B4332] mb-1.5">
+              {t('storage')}
+            </h3>
+            <div className="rounded-2xl bg-[#1B4332]/5 px-4 py-3">
+              <p className="text-sm text-[#1B4332]/80 leading-relaxed">{TEST_DETAIL.storage}</p>
             </div>
           </section>
         </div>
@@ -163,7 +193,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
                 : 'bg-[#1B4332] text-white hover:bg-[#2d5a2d]'
             }`}
           >
-            {inCart ? t('inCart') : `+ ${t('addToCart')} — ${discountedPrice.toFixed(2).replace('.', ',')} zł`}
+            {inCart ? t('inCart') : `+ ${t('addToCart')} — ${formatPrice(discountedPrice)}`}
           </button>
         </div>
       </div>

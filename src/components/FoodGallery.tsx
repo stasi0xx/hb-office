@@ -11,54 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ← Podmień na swoje zdjęcia (8 = optymalna liczba kart)
 const PHOTOS = [
-  {
-    src: '/images/food-1.webp',
-    label: 'Schabowy z ziemniakami',
-    desc: 'Klasyczny schabowy z chrupiącą panierką, domowe ziemniaki puree i surówka z kiszonej kapusty. Comfort food w najczystszej postaci.',
-    tags: ['Danie dnia', 'Mięsne'],
-  },
-  {
-    src: '/images/food-2.webp',
-    label: 'Sushi',
-    desc: 'Rolki z ryżem sushi, świeżym łososiem i awokado. Zawinięte ręcznie, codziennie rano. Sos sojowy i imbir w zestawie.',
-    tags: ['Sushi & Poke', 'Świeże 24h'],
-  },
-  {
-    src: '/images/food-3.webp',
-    label: 'Bigos',
-    desc: 'Bigos po staropolsku — kiszona i świeża kapusta, trzy rodzaje mięsa, grzyby leśne. Gotowany wolno przez 4 godziny.',
-    tags: ['Polska kuchnia', 'Mięsne'],
-  },
-  {
-    src: '/images/food-4.webp',
-    label: 'Kanapki',
-    desc: 'Chleb na zakwasie, masło czosnkowe, wędzony łosoś, rukola i krem z awokado. Śniadanie jak z warszawskiej kawiarni.',
-    tags: ['Kanapki', 'Śniadanie'],
-  },
-  {
-    src: '/images/food-5.webp',
-    label: 'Zupa dnia',
-    desc: 'Kremowa zupa pomidorowa z domowym makaronem. Pomidory pelati, świeża bazylia, parmezan na wierzchu. Zero kostek rosołowych.',
-    tags: ['Zupy', 'Wegetariańska'],
-  },
-  {
-    src: '/images/food-6.webp',
-    label: 'Sałatka',
-    desc: 'Poke bowl z brązowym ryżem, grillowanym kurczakiem, mango, edamame i dressingiem teriyaki. Sycące i lekkie jednocześnie.',
-    tags: ['Sałatki', 'Lekkie'],
-  },
-  {
-    src: '/images/food-7.webp',
-    label: 'Pierogi',
-    desc: 'Pierogi ruskie z ziemniakami i serem białym, podsmażane na maśle ze złocistą cebulką. Babciny przepis, nasze wykonanie.',
-    tags: ['Polska kuchnia', 'Wegetariańska'],
-  },
-  {
-    src: '/images/food-8.webp',
-    label: 'Makaron',
-    desc: 'Tagliatelle z krewetkami, masłem czosnkowym, cherry tomatoes i parmezanem. Gotowane al dente, doprawiane na miejscu.',
-    tags: ['Makaron', 'Owoce morza'],
-  },
+  { src: '/images/food-1.webp', i: 0, tags: ['daily', 'meat'] as const },
+  { src: '/images/food-2.webp', i: 1, tags: ['daily', 'meat'] as const },
+  { src: '/images/food-3.webp', i: 2, tags: ['daily', 'veg'] as const },
+  { src: '/images/food-4.webp', i: 3, tags: ['daily', 'meat'] as const },
+  { src: '/images/food-5.webp', i: 4, tags: ['daily', 'veg'] as const },
+  { src: '/images/food-6.webp', i: 5, tags: ['daily', 'veg'] as const },
+  { src: '/images/food-7.webp', i: 6, tags: ['daily', 'veg'] as const },
+  { src: '/images/food-8.webp', i: 7, tags: ['daily', 'veg'] as const },
 ];
 
 // Finalne obroty i przesunięcia każdej karty — "rozrzucone na stole"
@@ -74,6 +34,7 @@ const CARD_PROPS = [
 ];
 
 type Photo = (typeof PHOTOS)[number];
+const TAG_KEYS = { daily: 'tagDaily', meat: 'tagMeat', veg: 'tagVeg' } as const;
 
 export default function FoodGallery() {
   const t = useTranslations('gallery');
@@ -236,14 +197,14 @@ export default function FoodGallery() {
                 <div className="aspect-square relative overflow-hidden bg-[#e8e0d5]">
                   <Image
                     src={photo.src}
-                    alt={photo.label}
+                    alt={t(`photo${photo.i}Label`)}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 20vw"
                   />
                 </div>
                 <p className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-0 right-0 text-center text-[11px] sm:text-xs md:text-sm lg:text-base font-bold text-[#1B4332]/70 tracking-wide px-2 truncate">
-                  {photo.label}
+                  {t(`photo${photo.i}Label`)}
                 </p>
               </div>
             </div>
@@ -292,7 +253,7 @@ export default function FoodGallery() {
             <div className="aspect-[4/3] relative overflow-hidden bg-[#e8e0d5]">
               <Image
                 src={selectedPhoto.src}
-                alt={selectedPhoto.label}
+                alt={t(`photo${selectedPhoto.i}Label`)}
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 90vw, 448px"
@@ -309,19 +270,19 @@ export default function FoodGallery() {
                     key={tag}
                     className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#1B4332]/8 text-[#1B4332]/60 border border-[#1B4332]/12"
                   >
-                    {tag}
+                    {t(TAG_KEYS[tag])}
                   </span>
                 ))}
               </div>
 
               {/* Nazwa */}
               <h3 className="font-heading font-black text-2xl text-[#1B4332] leading-tight mb-2">
-                {selectedPhoto.label}
+                {t(`photo${selectedPhoto.i}Label`)}
               </h3>
 
               {/* Opis */}
               <p className="text-sm text-[#1B4332]/65 leading-relaxed mb-5">
-                {selectedPhoto.desc}
+                {t(`photo${selectedPhoto.i}Desc`)}
               </p>
 
               {/* CTA */}

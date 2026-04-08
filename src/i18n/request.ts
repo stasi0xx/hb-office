@@ -4,12 +4,17 @@ import { routing } from './routing';
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
 
-  if (!locale || !routing.locales.includes(locale as 'pl' | 'en')) {
+  if (!locale || !routing.locales.includes(locale)) {
     locale = routing.defaultLocale;
   }
 
-  return {
-    locale,
-    messages: (await import(`./messages/${locale}.json`)).default,
-  };
+  let messages: Record<string, unknown>;
+  try {
+    messages = (await import(`./messages/${locale}.json`)).default;
+  } catch {
+    // Translation file not yet available — fall back to English
+    messages = (await import(`./messages/en.json`)).default;
+  }
+
+  return { locale, messages };
 });

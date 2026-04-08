@@ -1,3 +1,21 @@
+import type { Currency } from '@/config/sites';
+
+const LOCALE_MAP: Record<string, string> = {
+  pl: 'pl-PL',
+  nl: 'nl-NL',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  en: 'en-GB',
+};
+
+/** Formats a price with correct currency symbol and decimal separator. */
+export function formatPrice(amount: number, currency: Currency): string {
+  if (currency === 'PLN') {
+    return `${amount.toFixed(2).replace('.', ',')} zł`;
+  }
+  return `€\u00A0${amount.toFixed(2)}`;
+}
+
 export function slugify(str: string): string {
   return str
     .toLowerCase()
@@ -14,7 +32,7 @@ export function parseMenuDate(dateStr: string): Date {
 
 export function formatDisplayDate(dateStr: string, locale: string): string {
   const date = parseMenuDate(dateStr);
-  return date.toLocaleDateString(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+  return date.toLocaleDateString(LOCALE_MAP[locale] ?? 'en-GB', {
     weekday: 'short',
     day: 'numeric',
     month: 'short',
@@ -23,14 +41,14 @@ export function formatDisplayDate(dateStr: string, locale: string): string {
 
 export function getDayName(dateStr: string, locale: string): string {
   const date = parseMenuDate(dateStr);
-  return date.toLocaleDateString(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+  return date.toLocaleDateString(LOCALE_MAP[locale] ?? 'en-GB', {
     weekday: 'long',
   });
 }
 
 export function getShortDayName(dateStr: string, locale: string): string {
   const date = parseMenuDate(dateStr);
-  return date.toLocaleDateString(locale === 'pl' ? 'pl-PL' : 'en-GB', {
+  return date.toLocaleDateString(LOCALE_MAP[locale] ?? 'en-GB', {
     weekday: 'short',
   });
 }

@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server';
 import { headers } from 'next/headers';
 import Header from '@/components/Header';
 import CookieConsent from '@/components/CookieConsent';
+import ChatWidget from '@/components/ChatWidget';
 
 export default async function LocaleLayout({
   children,
@@ -15,20 +16,21 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as 'pl' | 'en')) {
+  if (!(routing.locales as string[]).includes(locale)) {
     notFound();
   }
 
   const messages = await getMessages();
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') ?? '';
-  const isKonto = /\/(pl|en)\/konto/.test(pathname);
+  const isKonto = /\/konto/.test(pathname);
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       {!isKonto && <Header />}
       {children}
       <CookieConsent />
+      <ChatWidget />
     </NextIntlClientProvider>
   );
 }

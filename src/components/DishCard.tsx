@@ -1,11 +1,22 @@
 'use client';
 
 import { useCartStore, parsePrice, ONLINE_DISCOUNT } from '@/store/cart';
+import { getSiteConfig } from '@/config/sites';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Image from 'next/image';
 import DishModal from './DishModal';
 import CategoryIcon from './CategoryIcon';
+
+const { currency } = getSiteConfig();
+const currencySymbol = currency === 'EUR' ? '€' : 'zł';
+
+function formatPrice(amount: number): string {
+  if (currency === 'EUR') {
+    return `€${amount.toFixed(2).replace('.', ',')}`;
+  }
+  return `${amount.toFixed(2).replace('.', ',')} zł`;
+}
 
 interface DishCardProps {
   id: string;
@@ -89,7 +100,7 @@ export default function DishCard({ id, name, category, priceStr, date }: DishCar
                 {name}
               </h3>
               <span className="text-[15px] font-black text-[#E8967A] shrink-0 mt-[1px]">
-                {discountedPrice.toFixed(2).replace('.', ',')} zł
+                {formatPrice(discountedPrice)}
               </span>
             </div>
           </div>
@@ -116,7 +127,7 @@ export default function DishCard({ id, name, category, priceStr, date }: DishCar
                 <div className="w-[14px] h-[14px] shrink-0 rounded-full border-[1.5px] border-gray-300 bg-white flex items-center justify-center">
                 </div>
                 <span className="text-[11px] font-medium text-gray-500 leading-none">Zwykła cena</span>
-                <span className="text-[10px] font-medium text-gray-400 line-through leading-none mt-0.5 ml-[-1px]">{priceStr}</span>
+                <span className="text-[10px] font-medium text-gray-400 line-through leading-none mt-0.5 ml-[-1px]">{formatPrice(originalPrice)}</span>
               </div>
             </div>
 

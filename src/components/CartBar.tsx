@@ -3,17 +3,20 @@
 import { useState, useEffect } from 'react';
 import { useCartStore } from '@/store/cart';
 import { useTranslations } from 'next-intl';
+import { formatPrice } from '@/lib/utils';
+import { getSiteConfig } from '@/config/sites';
 import { ShoppingBag } from 'lucide-react';
 
 export default function CartBar() {
   const t = useTranslations('cart');
-  const { items, total, itemCount, openCart } = useCartStore();
+  const { items, grandTotal, itemCount, openCart } = useCartStore();
   const [hasMounted, setHasMounted] = useState(false);
+  const { currency } = getSiteConfig();
 
   useEffect(() => { setHasMounted(true); }, []);
 
   const count = hasMounted ? itemCount() : 0;
-  const totalAmount = hasMounted ? total() : 0;
+  const total = hasMounted ? grandTotal() : 0;
 
   if (count === 0) return null;
 
@@ -35,7 +38,7 @@ export default function CartBar() {
 
         <div className="flex items-center gap-3">
           <span className="font-heading text-xl text-white">
-            {totalAmount.toFixed(2).replace('.', ',')} zł
+            {formatPrice(total, currency)}
           </span>
           <span className="rounded-full bg-[#E8967A] px-4 py-1.5 text-sm font-700 text-white">
             {t('orderButton')} →

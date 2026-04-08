@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import DishCard from './DishCard';
 import CategoryIcon from './CategoryIcon';
 import { slugify } from '@/lib/utils';
 
 interface Dish {
   nazwa: string;
+  name_translations?: Record<string, string>;
   cena: string;
 }
 
@@ -21,6 +22,7 @@ interface MenuCategoryProps {
 
 export default function MenuCategory({ category, dishes, date, isOpen: isOpenProp, onToggle }: MenuCategoryProps) {
   const t = useTranslations('categories');
+  const locale = useLocale();
   const [localOpen, setLocalOpen] = useState(true);
 
   const isOpen = isOpenProp !== undefined ? isOpenProp : localOpen;
@@ -58,11 +60,12 @@ export default function MenuCategory({ category, dishes, date, isOpen: isOpenPro
         <div className="px-3 md:px-4 pb-3 md:pb-4 pt-1 grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
           {dishes.map((dish, idx) => {
             const id = `${slugify(date)}-${slugify(category)}-${slugify(dish.nazwa)}-${idx}`;
+            const localizedName = dish.name_translations?.[locale] || dish.name_translations?.['en'] || dish.nazwa;
             return (
               <DishCard
                 key={id}
                 id={id}
-                name={dish.nazwa}
+                name={localizedName}
                 category={category}
                 priceStr={dish.cena}
                 date={date}

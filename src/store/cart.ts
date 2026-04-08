@@ -2,8 +2,20 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { getSiteConfig } from '../config/sites';
 
-export const ONLINE_DISCOUNT = 0.05;
+export const ONLINE_DISCOUNT = getSiteConfig().onlineDiscount;
+
+/**
+ * Package-level metadata set by the migrant ordering flow.
+ * Stores actual Trunkrs delivery event dates (not eating days).
+ */
+export interface PackageMeta {
+  /** ISO strings of the physical Trunkrs delivery event Date objects */
+  deliveryEventDates: string[];
+  /** Package size: 3 or 6 eating days */
+  eatingDays: number;
+}
 
 export interface CartItem {
   id: string;
@@ -18,6 +30,9 @@ export interface CartItem {
 interface CartState {
   items: CartItem[];
   isOpen: boolean;
+  /** Set by migrant flow — stores actual Trunkrs delivery event dates */
+  packageMeta: PackageMeta | null;
+  setPackageMeta: (meta: PackageMeta | null) => void;
   addItem: (item: Omit<CartItem, 'quantity' | 'price'>) => void;
   removeItem: (id: string, date: string) => void;
   updateQuantity: (id: string, date: string, quantity: number) => void;
@@ -29,6 +44,10 @@ interface CartState {
   savings: () => number;
   itemCount: () => number;
   hasDrink: () => boolean;
+  /** Delivery cost based on site config (0 for free delivery). */
+  deliveryCost: () => number;
+  /** Items total + delivery cost. */
+  grandTotal: () => number;
 }
 
 export const useCartStore = create<CartState>()(
@@ -36,6 +55,9 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       isOpen: false,
+      packageMeta: null,
+
+      setPackageMeta: (meta) => set({ packageMeta: meta }),
 
       addItem: (newItem) => {
         const discountedPrice = parseFloat(
@@ -78,7 +100,7 @@ export const useCartStore = create<CartState>()(
         }));
       },
 
-      clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [], packageMeta: null }),
 
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
@@ -114,6 +136,21 @@ export const useCartStore = create<CartState>()(
           );
         });
       },
+
+      deliveryCost: () => {
+        const items = get().items;
+        if (items.length === 0) return 0;
+        const { delivery } = getSiteConfig();
+        if (delivery.type === 'free') return 0;
+        if (delivery.type === 'per-order') return delivery.costPerOrder ?? 0;
+        if (delivery.type === 'per-day') {
+          const uniqueDates = new Set(items.map((i) => i.date)).size;
+          return uniqueDates * (delivery.costPerDay ?? 0);
+        }
+        return 0;
+      },
+
+      grandTotal: () => get().total() + get().deliveryCost(),
     }),
     {
       name: 'gn-cart',

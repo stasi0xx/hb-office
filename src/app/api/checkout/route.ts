@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { createServerSupabaseClient } from '@/lib/supabase';
 import { sendOrderEmails } from '@/lib/resend';
+import { getSiteConfig, toStripeLocale } from '@/config/sites';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,11 +52,13 @@ export async function POST(req: NextRequest) {
     const supabase = createServerSupabaseClient();
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
+    const site = getSiteConfig();
+
     if (paymentMethod === 'stripe') {
       // Create Stripe checkout session
       const lineItems = items.map((item) => ({
         price_data: {
-          currency: 'pln',
+          currency: site.currency.toLowerCase(),
           product_data: {
             name: item.name,
             description: `${item.category} – dostawa ${item.date}`,
@@ -104,7 +107,7 @@ export async function POST(req: NextRequest) {
       const registerParam = tokenRow?.id ? `&register=${tokenRow.id}` : '';
 
       const session = await getStripe().checkout.sessions.create({
-        payment_method_types: ['card', 'blik', 'p24'],
+        payment_method_types: site.payment.methods,
         line_items: lineItems,
         mode: 'payment',
         success_url: `${baseUrl}/${locale}/success?orderId=${order.id}&session_id={CHECKOUT_SESSION_ID}${registerParam}`,
@@ -113,7 +116,7 @@ export async function POST(req: NextRequest) {
         metadata: {
           order_id: order.id,
         },
-        locale: locale === 'pl' ? 'pl' : 'en',
+        locale: toStripeLocale(locale),
       });
 
       // Update order with stripe session id
@@ -121,29 +124,6 @@ export async function POST(req: NextRequest) {
         .from('orders')
         .update({ stripe_session_id: session.id as string })
         .eq('id', order.id);
-
-      // Send emails immediately (webhook handles production confirmation)
-      try {
-        await sendOrderEmails({
-          orderId: order.id,
-          customerFirstName: customer.firstName,
-          customerLastName: customer.lastName,
-          customerEmail: customer.email,
-          customerPhone: customer.phone,
-          companyName: customer.companyName,
-          address: customer.address,
-          city: customer.city,
-          floorRoom: customer.floorRoom,
-          notes: customer.notes,
-          items,
-          totalAmount,
-          paymentMethod: 'stripe',
-          deliveryDates,
-        });
-        console.log('Stripe order emails sent for:', order.id);
-      } catch (emailErr) {
-        console.error('Email send error:', JSON.stringify(emailErr));
-      }
 
       return NextResponse.json({ url: session.url });
     } else {

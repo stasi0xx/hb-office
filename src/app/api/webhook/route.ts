@@ -43,6 +43,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true });
     }
 
+    // Idempotency guard: skip if already confirmed (webhook delivered twice)
+    if (order.payment_status === 'paid') {
+      console.log('Order already processed, skipping:', order.id);
+      return NextResponse.json({ received: true });
+    }
+
     // Update order status
     const { error: updateError } = await supabase
       .from('orders')
