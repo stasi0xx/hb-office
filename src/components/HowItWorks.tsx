@@ -112,8 +112,19 @@ export default function HowItWorks() {
     // measures positions before font-swap causes layout shifts, breaking triggers.
     document.fonts.ready.then(init);
 
+    // Re-measure when anything above this section changes the page height
+    // (e.g. menu data loading from API, lazy images, etc.)
+    let rafId: number;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
+    ro.observe(document.body);
+
     return () => {
       triggers.forEach(st => st.kill());
+      ro.disconnect();
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
