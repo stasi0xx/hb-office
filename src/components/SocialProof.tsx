@@ -229,11 +229,8 @@ export default function SocialProof() {
 
       <style>{`
         @keyframes bearPeek {
-          0%   { transform: translate(90%, -60%) rotate(140deg); opacity: 0; }
-          55%  { transform: translate(-6px, 6px) rotate(186deg); opacity: 1; }
-          75%  { transform: translate(4px, -4px) rotate(177deg); }
-          90%  { transform: translate(-2px, 2px) rotate(181deg); }
-          100% { transform: translate(0, 0) rotate(180deg); }
+          0%   { transform: translateX(55%) rotate(180deg); opacity: 0; }
+          100% { transform: translateX(0) rotate(180deg); opacity: 1; }
         }
         @keyframes cardExitLeft {
           from { transform: translateX(0) rotate(0deg); opacity: 1; }
@@ -268,7 +265,7 @@ export default function SocialProof() {
         className="pointer-events-none absolute -top-4 -right-8 w-64 select-none z-10"
         style={
           sectionVisible
-            ? { animation: 'bearPeek 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards' }
+            ? { animation: 'bearPeek 0.9s ease-out forwards' }
             : { opacity: 0 }
         }
       >

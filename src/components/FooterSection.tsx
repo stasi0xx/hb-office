@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { getSiteConfig } from '@/config/sites';
 
 const siteConfig = getSiteConfig();
-const isHB = siteConfig.id === 'hongige-beer-migrant' || siteConfig.id === 'hongige-beer-office';
+const isHB = siteConfig.id === 'hongige-beer-office';
 
 const HB_CONTACT = {
   companyName: 'Foodmarkt BV',
@@ -43,12 +43,13 @@ export default function FooterSection() {
   return (
     <>
       {/* Footer CTA */}
-      <section id="contact" className="bg-[#1B4332] px-6 py-16 relative overflow-hidden">
-        <div className="absolute -bottom-12 -right-12 opacity-5 pointer-events-none select-none">
-          <img src={isHB ? HB_CONTACT.logo : GN_CONTACT.logo} alt="" className="w-96 h-auto" />
+      <section id="contact" className="bg-[#1B4332] pt-16 pb-16 relative overflow-hidden">
+        <div className="flex items-center gap-6 px-6 mb-10">
+          <div className="flex-1 h-px bg-white/20" />
+          <img src={isHB ? HB_CONTACT.logo : GN_CONTACT.logo} alt="" className="h-10 w-auto opacity-80" />
+          <div className="flex-1 h-px bg-white/20" />
         </div>
-
-        <div className="mx-auto max-w-2xl text-center relative z-10">
+        <div className="mx-auto max-w-2xl text-center relative z-10 px-6">
           <h2 className="font-heading font-black text-4xl text-[#FDF6EC] leading-tight mb-8">
             {tCta('headline')}
           </h2>
@@ -85,7 +86,7 @@ export default function FooterSection() {
                 <li><a href="/#how-it-works" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('howItWorks')}</a></li>
                 <li><a href="/#faq" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('faq')}</a></li>
                 {!isHB && (
-                  <li><a href="/dla-firm" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('forBusiness')}</a></li>
+                  <li><a href="/for-business" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('forBusiness')}</a></li>
                 )}
               </ul>
             </div>
@@ -97,7 +98,7 @@ export default function FooterSection() {
               </p>
               <ul className="flex flex-col gap-4">
                 <li><a href="/terms" className="text-sm text-white/60 hover:text-white transition-colors">{tFooter('termsOfService')}</a></li>
-                <li><a href="/privacy" className="text-sm text-white/60 hover:text-white transition-colors">{tFooter('privacyPolicy')}</a></li>
+                <li><a href="/privacy-policy" className="text-sm text-white/60 hover:text-white transition-colors">{tFooter('privacyPolicy')}</a></li>
               </ul>
             </div>
 

@@ -208,7 +208,6 @@
     "subheadline": "<b>Fresh</b>, healthy <b>meals</b>. Restaurant <b>quality</b> delivered straight to <b>Your</b> door.",
     "cta": "Order now",
     "ctaSecondary": "For Business",
-    "tag1": "INAO Ingredients",
     "tag2": "Fresh 24h",
     "tag3": "Office Delivery"
   },
@@ -221,7 +220,7 @@
     "freshSub": "Zero preservatives",
     "delivery": "200+ offices",
     "deliverySub": "In Warsaw",
-    "rating": "4.9 / 5",
+    "rating": "4.6 / 5",
     "ratingSub": "Customer rating"
   },
   "howItWorks": {
@@ -233,11 +232,11 @@
     "step2Title": "Straight from local farmers",
     "step2Desc": "We work with local suppliers who know their produce by name. No middlemen, no freezers — just ingredients someone actually vouches for.",
     "step3Title": "Cooked by masters, not machines",
-    "step3Desc": "Our recipes are crafted and constantly refined by Poland's finest chefs. Every dish is the result of real skill — not a production line.",
+    "step3Desc": "Our recipes are crafted and constantly refined by the world's finest chefs. Every dish is the result of real skill — not a production line.",
     "step4Title": "We pack. No chemicals.",
     "step4Desc": "No preservatives, no artificial additives. Packed so your meal arrives just as good as it left the kitchen.",
     "step5Title": "At your office by morning",
-    "step5Desc": "We're at your door between 8:00 and 10:00 — exactly 24 hours after we started cooking. Freshness has standards."
+    "step5Desc": "We're at your door between 8:00 and 10:00 — exactly 24 hours after we finished cooking. Freshness has standards."
   },
   "differentiators": {
     "eyebrow": "What sets us apart",
@@ -295,7 +294,7 @@
   "chat": {
     "title": "Hungry Bear Assistant",
     "subtitle": "Ask about the menu or delivery",
-    "welcome": "Hey! I'll help you find something delicious 🐻",
+    "welcome": "Hey! I'll help you find something delicious",
     "placeholder": "Type a message...",
     "send": "Send",
     "open": "Chat with us",
@@ -320,7 +319,7 @@
     "companyDetails": "Company Details",
     "companyInfo": "The aforementioned business is conducted by Katarzyna Głuchowska, an entrepreneur running a business under the name \"Two Squares Katarzyna Głuchowska\" based in Bojano (84-207) at ul. Partyzantów Kaszubskich 19, registered in the Central Register and Information on Economic Activity (CEIDG), NIP (Tax ID): 534-217-20-08, REGON: 367356273, owner of the catering business operating under the Głodny Niedźwiedź brand. The seller holds an individual registration number in the BDO register (waste management) - 000216527.",
     "rights": "All rights reserved",
-    "tagline": "Real food for real people."
+    "tagline": "Office catering with restaurant quality."
   },
   "auth": {
     "login": {

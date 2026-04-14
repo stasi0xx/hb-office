@@ -108,7 +108,7 @@ function SuccessContent() {
                 Śledź zamówienie, zarządzaj adresami i zbieraj punkty lojalnościowe za każdy lunch.
               </p>
               <Link
-                href={`/rejestracja?token=${registrationToken}`}
+                href={`/register?token=${registrationToken}`}
                 className="block w-full rounded-xl bg-[#E8967A] py-3 text-center font-heading text-base text-white transition hover:bg-[#d4785e]"
               >
                 Utwórz konto →

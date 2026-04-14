@@ -221,7 +221,7 @@
     "freshSub": "Zéro conservateurs",
     "delivery": "200+ bureaux",
     "deliverySub": "À Warszawa",
-    "rating": "4,9 / 5",
+    "rating": "4,6 / 5",
     "ratingSub": "Avis clients"
   },
   "howItWorks": {
@@ -233,11 +233,11 @@
     "step2Title": "Directement des producteurs locaux",
     "step2Desc": "Nous travaillons avec des fournisseurs locaux qui connaissent leurs produits par leur nom. Pas d'intermédiaires, pas de congélateurs — juste des ingrédients que quelqu'un garantit vraiment.",
     "step3Title": "Cuisiné par des maîtres, pas des machines",
-    "step3Desc": "Nos recettes sont élaborées et constamment perfectionnées par les meilleurs chefs polonais. Chaque plat est le fruit d'un vrai savoir-faire — pas d'une chaîne de production.",
+    "step3Desc": "Nos recettes sont élaborées et constamment perfectionnées par les meilleurs chefs du monde. Chaque plat est le fruit d'un vrai savoir-faire — pas d'une chaîne de production.",
     "step4Title": "On emballe. Sans chimie.",
     "step4Desc": "Ni conservateurs, ni additifs artificiels. Emballé pour que votre repas arrive aussi bon qu'à la sortie de la cuisine.",
     "step5Title": "À votre bureau le matin",
-    "step5Desc": "On est à votre porte entre 8h et 10h — exactement 24 heures après le début de la cuisson. La fraîcheur a ses standards."
+    "step5Desc": "On est à votre porte entre 8h et 10h — exactement 24 heures après la fin de la cuisson. La fraîcheur a ses standards."
   },
   "differentiators": {
     "eyebrow": "Ce qui nous distingue",
@@ -320,7 +320,7 @@
     "companyDetails": "Informations sur l'entreprise",
     "companyInfo": "L'activité susmentionnée est exercée par Katarzyna Głuchowska, entrepreneur exploitant une entreprise sous le nom « Two Squares Katarzyna Głuchowska » dont le siège est à Bojano (84-207), ul. Partyzantów Kaszubskich 19, enregistrée au Registre central et à l'information sur l'activité économique (CEIDG), NIP (numéro fiscal) : 534-217-20-08, REGON : 367356273, propriétaire de l'entreprise de restauration opérant sous la marque Głodny Niedźwiedź. Le vendeur détient un numéro d'enregistrement individuel dans le registre BDO (gestion des déchets) - 000216527.",
     "rights": "Tous droits réservés",
-    "tagline": "De la vraie nourriture pour de vraies personnes."
+    "tagline": "Restauration d'entreprise avec qualité de restaurant."
   },
   "auth": {
     "login": {

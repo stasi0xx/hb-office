@@ -221,7 +221,7 @@
     "freshSub": "Null Konservierungsstoffe",
     "delivery": "200+ Büros",
     "deliverySub": "In Warschau",
-    "rating": "4,9 / 5",
+    "rating": "4,6 / 5",
     "ratingSub": "Kundenbewertung"
   },
   "howItWorks": {
@@ -233,11 +233,11 @@
     "step2Title": "Direkt von lokalen Bauern",
     "step2Desc": "Wir arbeiten mit lokalen Lieferanten zusammen, die ihre Produkte beim Namen kennen. Keine Zwischenhändler, keine Tiefkühlware – nur Zutaten, für die jemand wirklich einsteht.",
     "step3Title": "Gekocht von Meistern, nicht Maschinen",
-    "step3Desc": "Unsere Rezepte werden von Polens besten Köchen entwickelt und ständig verfeinert. Jedes Gericht ist das Ergebnis echter Handwerkskunst – keine Fließbandproduktion.",
+    "step3Desc": "Unsere Rezepte werden von den weltbesten Köchen entwickelt und ständig verfeinert. Jedes Gericht ist das Ergebnis echter Handwerkskunst – keine Fließbandproduktion.",
     "step4Title": "Verpackt. Ohne Chemie.",
     "step4Desc": "Keine Konservierungsstoffe, keine künstlichen Zusätze. Verpackt, damit deine Mahlzeit genauso gut ankommt, wie sie die Küche verlassen hat.",
     "step5Title": "Morgens im Büro",
-    "step5Desc": "Wir sind zwischen 8:00 und 10:00 Uhr bei dir – genau 24 Stunden nachdem wir angefangen haben zu kochen. Frische hat Standards."
+    "step5Desc": "Wir sind zwischen 8:00 und 10:00 Uhr bei dir – genau 24 Stunden nachdem wir fertig gekocht haben. Frische hat Standards."
   },
   "differentiators": {
     "eyebrow": "Was uns unterscheidet",
@@ -320,7 +320,7 @@
     "companyDetails": "Unternehmensdetails",
     "companyInfo": "Das vorgenannte Unternehmen wird geführt von Katarzyna Głuchowska, einer Unternehmerin, die ein Geschäft unter dem Namen \"Two Squares Katarzyna Głuchowska\" mit Sitz in Bojano (84-207) in der ul. Partyzantów Kaszubskich 19 betreibt, eingetragen im Zentralen Register und Information zur wirtschaftlichen Tätigkeit (CEIDG), NIP (Steuer-ID): 534-217-20-08, REGON: 367356273, Eigentümerin des unter der Marke Głodny Niedźwiedź betriebenen Catering-Unternehmens. Der Verkäufer besitzt eine individuelle Registrierungsnummer im BDO-Register (Abfallmanagement) – 000216527.",
     "rights": "Alle Rechte vorbehalten",
-    "tagline": "Echtes Essen für echte Menschen."
+    "tagline": "Office-Catering mit Restaurantqualität."
   },
   "auth": {
     "login": {
