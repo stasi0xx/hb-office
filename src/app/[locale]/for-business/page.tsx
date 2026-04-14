@@ -141,21 +141,53 @@ export default function DlaFirmPage() {
   const iconsRef = useRef<(HTMLDivElement | null)[]>([]);
   const floatingCtaRef = useRef<HTMLButtonElement>(null);
   const sectionsContentRef = useRef<HTMLDivElement>(null);
+  const heroBreadcrumbRef = useRef<HTMLDivElement>(null);
+  const heroLogoRef = useRef<HTMLDivElement>(null);
+  const heroTaglineRef = useRef<HTMLParagraphElement>(null);
+  const heroCtaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // Hero entrance — skoordynowany timeline
+    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    if (heroBreadcrumbRef.current) {
+      heroTl.fromTo(heroBreadcrumbRef.current,
+        { y: -12, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 },
+        0
+      );
+    }
+    if (heroLogoRef.current) {
+      heroTl.fromTo(heroLogoRef.current,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        0.1
+      );
+    }
+    if (heroTaglineRef.current) {
+      heroTl.fromTo(heroTaglineRef.current,
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 },
+        0.25
+      );
+    }
+    if (heroCtaRef.current) {
+      heroTl.fromTo(heroCtaRef.current,
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.55 },
+        0.38
+      );
+    }
+
+    // Miś — startuje jako opacity:0 via inline style, GSAP animuje płynnie
     if (bagRef.current) {
-      gsap.fromTo(
+      heroTl.fromTo(
         bagRef.current,
-        { y: 150, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-          delay: 0.2, // Lekkie opóźnienie dla naturalnego wejścia
-        }
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.1, ease: 'power2.out' },
+        0.15
       );
     }
 
@@ -223,15 +255,17 @@ export default function DlaFirmPage() {
       <section className="bg-[#1B4332] overflow-hidden relative flex flex-col md:block">
         {/* Content */}
         <div className="relative z-10 mx-auto w-full max-w-2xl px-6 pt-14 pb-8 md:py-14 order-1">
-          <Link href="/" className="inline-flex items-center gap-1.5 text-white/40 text-xs font-semibold uppercase tracking-widest mb-10 hover:text-white/70 transition-colors">
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            {t('backLink')}
-          </Link>
+          <div ref={heroBreadcrumbRef}>
+            <Link href="/" className="inline-flex items-center gap-1.5 text-white/40 text-xs font-semibold uppercase tracking-widest mb-10 hover:text-white/70 transition-colors">
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+              {t('backLink')}
+            </Link>
+          </div>
 
           {/* GN Lunch App logo SVG */}
-          <div className="w-full md:w-[75%] min-w-[220px] mx-auto md:mx-0 flex justify-center md:justify-start">
+          <div ref={heroLogoRef} className="w-full md:w-[75%] min-w-[220px] mx-auto md:mx-0 flex justify-center md:justify-start">
             <img
               src="/images/lunchapp-logo.png"
               alt="GN Lunch App"
@@ -239,11 +273,11 @@ export default function DlaFirmPage() {
             />
           </div>
 
-          <p className="mt-4 mb-8 md:mb-10 text-[#ed8788] text-base font-bold text-center md:text-left md:w-[55%]">
+          <p ref={heroTaglineRef} className="mt-4 mb-8 md:mb-10 text-[#ed8788] text-base font-bold text-center md:text-left md:w-[55%]">
             {t('heroTagline')}
           </p>
 
-          <div className="flex justify-center md:justify-start">
+          <div ref={heroCtaRef} className="flex justify-center md:justify-start">
             <button
               onClick={() => document.getElementById('formularz')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
               className="rounded-lg bg-[#ed8788] px-8 py-3.5 text-sm font-black text-white uppercase tracking-widest transition-all hover:bg-[#d4806b] active:scale-95"
@@ -257,7 +291,7 @@ export default function DlaFirmPage() {
         </div>
 
         {/* Bear — right side, absolute, full section height */}
-        <div ref={bagRef} className="relative md:absolute md:right-8 lg:right-12 md:top-0 h-64 sm:h-80 md:h-full w-full md:w-[45%] pointer-events-none select-none order-2 mt-4 md:mt-0">
+        <div ref={bagRef} style={{ opacity: 0 }} className="relative md:absolute md:right-8 lg:right-12 md:top-0 h-64 sm:h-80 md:h-full w-full md:w-[45%] pointer-events-none select-none order-2 mt-4 md:mt-0">
           <img
             src="/images/bear-firm.webp"
             alt="Niedźwiedź dla firm"

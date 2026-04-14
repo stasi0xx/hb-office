@@ -85,9 +85,9 @@ export default function FooterSection() {
                 <li><a href="/#menu-section" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('menu')}</a></li>
                 <li><a href="/#how-it-works" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('howItWorks')}</a></li>
                 <li><a href="/#faq" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('faq')}</a></li>
-                {!isHB && (
-                  <li><a href="/for-business" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('forBusiness')}</a></li>
-                )}
+
+                <li><a href="/for-business" className="text-sm text-white/60 hover:text-white transition-colors">{tNav('forBusiness')}</a></li>
+
               </ul>
             </div>
 
