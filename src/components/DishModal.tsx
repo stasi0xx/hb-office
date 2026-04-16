@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useCartStore, parsePrice, ONLINE_DISCOUNT } from '@/store/cart';
 import { getSiteConfig } from '@/config/sites';
 import { useTranslations } from 'next-intl';
@@ -45,11 +46,13 @@ interface DishModalProps {
 
 export default function DishModal({ id, name, category, priceStr, date, onClose }: DishModalProps) {
   const t = useTranslations('menu');
-  const { items, addItem } = useCartStore();
+  const { items, addItem, updateQuantity } = useCartStore();
 
   const originalPrice = parsePrice(priceStr);
   const discountedPrice = parseFloat((originalPrice * (1 - ONLINE_DISCOUNT)).toFixed(2));
-  const inCart = items.some((i) => i.id === id && i.date === date);
+  const cartItem = items.find((i) => i.id === id && i.date === date);
+  const inCart = !!cartItem;
+  const [isClosing, setIsClosing] = useState(false);
 
   // Zablokuj scroll body gdy modal otwarty
   useEffect(() => {
@@ -57,21 +60,25 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
     return () => { document.body.style.overflow = ''; };
   }, []);
 
-  const handleAdd = () => {
-    addItem({ id, name, category, originalPrice, date });
-    onClose();
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(onClose, 320);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
+  const handleAdd = () => {
+    addItem({ id, name, category, originalPrice, date });
+  };
+
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-end justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
+        className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+        onClick={handleClose}
       />
 
       {/* Sheet */}
-      <div className="relative w-full max-w-2xl max-h-[92dvh] flex flex-col rounded-t-3xl bg-[#FDF6EC] overflow-hidden shadow-2xl animate-slide-up">
+      <div className={`relative w-full max-w-2xl max-h-[92dvh] flex flex-col rounded-t-3xl bg-[#FDF6EC] overflow-hidden shadow-2xl ${isClosing ? 'animate-slide-down' : 'animate-slide-up'}`}>
 
         {/* Image */}
         <div className="relative flex-shrink-0 h-52 bg-[#1B4332]/10">
@@ -81,7 +88,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
             className="w-full h-full object-cover"
           />
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-black/60 transition-colors"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -103,10 +110,7 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
               <span className="text-xl font-extrabold text-[#ed8788]">
                 {formatPrice(discountedPrice)}
               </span>
-              <span className="text-sm font-medium text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-              <span className="rounded-full bg-[#D4A017] px-2 py-0.5 text-[10px] font-extrabold text-white">
-                -5% online
-              </span>
+
             </div>
           </div>
 
@@ -184,19 +188,40 @@ export default function DishModal({ id, name, category, priceStr, date, onClose 
 
         {/* Sticky bottom CTA */}
         <div className="flex-shrink-0 px-5 py-4 bg-[#FDF6EC] border-t border-[#1B4332]/10">
-          <button
-            onClick={handleAdd}
-            disabled={inCart}
-            className={`w-full rounded-2xl py-3.5 font-bold text-base transition-all active:scale-[0.98] ${
-              inCart
-                ? 'bg-[#1B4332]/20 text-[#1B4332]/50 cursor-default'
-                : 'bg-[#1B4332] text-white hover:bg-[#2d5a2d]'
-            }`}
-          >
-            {inCart ? t('inCart') : `+ ${t('addToCart')} — ${formatPrice(discountedPrice)}`}
-          </button>
+          {inCart ? (
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => updateQuantity(id, date, cartItem!.quantity - 1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1B4332]/10 text-[#1B4332] text-xl font-bold transition-colors hover:bg-[#1B4332]/20 active:scale-95"
+                >
+                  −
+                </button>
+                <span className="min-w-[2ch] text-center text-xl font-extrabold text-[#1B4332]">
+                  {cartItem!.quantity}
+                </span>
+                <button
+                  onClick={() => updateQuantity(id, date, cartItem!.quantity + 1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1B4332] text-white text-xl font-bold transition-colors hover:bg-[#2d5a2d] active:scale-95"
+                >
+                  +
+                </button>
+              </div>
+              <span className="font-extrabold text-lg text-[#1B4332]">
+                {formatPrice(discountedPrice * cartItem!.quantity)}
+              </span>
+            </div>
+          ) : (
+            <button
+              onClick={handleAdd}
+              className="w-full rounded-2xl py-3.5 font-bold text-base bg-[#1B4332] text-white hover:bg-[#2d5a2d] transition-all active:scale-[0.98]"
+            >
+              + {t('addToCart')} — {formatPrice(discountedPrice)}
+            </button>
+          )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

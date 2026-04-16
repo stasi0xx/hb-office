@@ -48,19 +48,57 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-100 h-16 overflow-visible bg-[#1B4332] shadow-lg [transform:translateZ(0)] [backface-visibility:hidden]">
-      <div className="mx-auto max-w-2xl px-5 py-3.5">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-full px-5 py-3.5">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
           {/* Logo */}
           <Link href="/">
             <img src="/images/hb-logo.png" alt="Głodny Niedźwiedź" className="h-9 w-auto" />
           </Link>
 
+          {/* Desktop nav links — centered */}
+          <nav className="hidden lg:flex items-center justify-center gap-1">
+            {anchorLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => handleNavClick(link.href)}
+                className="px-4 py-2 text-sm font-semibold text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/10"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Mobile spacer */}
+          <div className="lg:hidden" />
+
           {/* Right actions */}
-          <div className="flex items-center gap-3 relative" ref={menuRef}>
+          <div className="flex items-center justify-end gap-2 relative" ref={menuRef}>
+
             <LanguageToggle />
+
+            {/* Desktop buttons */}
+            <div className="hidden lg:flex items-center gap-2">
+              <Link
+                href="/for-business"
+                className="flex items-center gap-1.5 rounded-full bg-[#E8967A] px-4 py-1.5 text-sm font-bold text-white transition-all hover:bg-[#d4795e]"
+              >
+                {t('forBusiness')}
+              </Link>
+              <Link
+                href="/account"
+                className="flex items-center gap-1.5 rounded-full border-2 border-white/30 px-4 py-1.5 text-sm font-bold text-white transition-all hover:border-white/60 hover:bg-white/10"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                {t('myAccount')}
+              </Link>
+            </div>
+
+            {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 lg:ml-4"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -72,11 +110,11 @@ export default function Header() {
               )}
             </button>
 
-            {/* Hamburger button */}
+            {/* Hamburger button — mobile only */}
             <button
               onClick={() => setMenuOpen(prev => !prev)}
               aria-label="Menu nawigacyjne"
-              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
+              className="lg:hidden relative flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
             >
               <span className="flex flex-col gap-[5px]">
                 <span className={`block h-[2px] w-5 bg-white rounded-full transition-all duration-200 origin-center ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
@@ -85,9 +123,9 @@ export default function Header() {
               </span>
             </button>
 
-            {/* Dropdown menu */}
+            {/* Mobile dropdown menu */}
             {menuOpen && (
-              <div className="absolute top-[calc(100%+8px)] right-0 z-50 w-52 rounded-2xl bg-[#1B4332] border border-white/10 shadow-2xl overflow-hidden">
+              <div className="lg:hidden absolute top-[calc(100%+8px)] right-0 z-50 w-52 rounded-2xl bg-[#1B4332] border border-white/10 shadow-2xl overflow-hidden">
                 {anchorLinks.map((link) => (
                   <button
                     key={link.href}

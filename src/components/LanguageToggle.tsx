@@ -49,27 +49,11 @@ export default function LanguageToggle() {
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
-  // 2 języki → toggle
-  if (locales.length === 2) {
-    const [a, b] = locales;
-    return (
-      <button
-        onClick={() => switchLocale(locale === a ? b : a)}
-        disabled={isPending}
-        className="flex items-center gap-1.5 rounded-full border-2 border-[#E8967A] px-3 py-1 text-sm font-bold text-[#E8967A] transition-all hover:bg-[#E8967A] hover:text-white disabled:opacity-50"
-      >
-        <span className={locale === a ? 'opacity-100' : 'opacity-40'}>{a.toUpperCase()}</span>
-        <span className="opacity-30">/</span>
-        <span className={locale === b ? 'opacity-100' : 'opacity-40'}>{b.toUpperCase()}</span>
-      </button>
-    );
-  }
-
-  // 3–4 języki → pills
-  if (locales.length <= 4) {
-    return (
+  return (
+    <div ref={ref} className="relative">
+      {/* Pills — widoczne od md w górę */}
       <div
-        className={`flex items-center rounded-full border-2 border-[#E8967A] px-2 py-0.5 transition-opacity ${isPending ? 'opacity-50' : ''}`}
+        className={`hidden md:flex items-center rounded-full border-2 border-[#E8967A] px-2 py-0.5 transition-opacity ${isPending ? 'opacity-50' : ''}`}
       >
         {locales.map((loc, i) => (
           <div key={loc} className="flex items-center">
@@ -88,41 +72,39 @@ export default function LanguageToggle() {
           </div>
         ))}
       </div>
-    );
-  }
 
-  // 5+ języków → dropdown
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        disabled={isPending}
-        className="flex items-center gap-1.5 rounded-full border-2 border-[#E8967A] px-3 py-1 text-sm font-bold text-[#E8967A] transition-all hover:bg-[#E8967A] hover:text-white disabled:opacity-50"
-      >
-        <span>{locale.toUpperCase()}</span>
-        <ChevronDown
-          className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
+      {/* Dropdown — widoczny tylko na małych ekranach */}
+      <div className="md:hidden">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          disabled={isPending}
+          className="flex items-center gap-1.5 rounded-full border-2 border-[#E8967A] px-3 py-1 text-sm font-bold text-[#E8967A] transition-all hover:bg-[#E8967A] hover:text-white disabled:opacity-50"
+        >
+          <span>{locale.toUpperCase()}</span>
+          <ChevronDown
+            className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          />
+        </button>
 
-      {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-40 overflow-hidden rounded-xl border border-[#E8967A]/20 bg-white py-1 shadow-lg">
-          {locales.map((loc) => (
-            <button
-              key={loc}
-              onClick={() => switchLocale(loc)}
-              disabled={isPending}
-              className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-[#FDF6EC] ${
-                locale === loc
-                  ? 'font-bold text-[#E8967A]'
-                  : 'font-medium text-[#1B4332]'
-              }`}
-            >
-              {LANGUAGE_NAMES[loc] ?? loc.toUpperCase()}
-            </button>
-          ))}
-        </div>
-      )}
+        {open && (
+          <div className="absolute right-0 top-full z-50 mt-2 w-40 overflow-hidden rounded-xl border border-[#E8967A]/20 bg-white py-1 shadow-lg">
+            {locales.map((loc) => (
+              <button
+                key={loc}
+                onClick={() => switchLocale(loc)}
+                disabled={isPending}
+                className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-[#FDF6EC] ${
+                  locale === loc
+                    ? 'font-bold text-[#E8967A]'
+                    : 'font-medium text-[#1B4332]'
+                }`}
+              >
+                {LANGUAGE_NAMES[loc] ?? loc.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
